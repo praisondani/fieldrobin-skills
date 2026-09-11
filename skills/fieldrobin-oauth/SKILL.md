@@ -1,11 +1,20 @@
 ---
 name: fieldrobin-oauth
-description: Register an OAuth client for the FieldRobin MCP server, request granular scopes, and complete Authorization Code with PKCE.
+description: Register an OAuth client for FieldRobin, field service software for home-service businesses. Use when connecting Claude, ChatGPT, Cursor, or an API client to a FieldRobin workspace, or when the user mentions FieldRobin OAuth, PKCE, MCP scopes, or client registration.
 ---
 
 # FieldRobin OAuth
 
-Use this skill to register and authorize an MCP or API client against FieldRobin.
+FieldRobin is field service software for home-service businesses (customers,
+jobs, scheduling, invoices). This skill registers an OAuth client so an
+agent or app can access one business workspace.
+
+Use when connecting Claude, ChatGPT, Cursor, or another MCP/API client to
+FieldRobin. Use `fieldrobin-mcp` after auth to call tools. Product facts:
+`fieldrobin-public-discovery` or https://fieldrobin.com/api/ai?section=product
+
+A FieldRobin business must already exist. Registration creates an OAuth client;
+it does not create a user or business.
 
 ## Discovery
 
@@ -30,6 +39,5 @@ both. Existing read-only clients keep their grant until they reconnect.
 ## Flow
 
 Use Authorization Code with PKCE (`S256`) and a registered redirect URI.
-Registration creates an OAuth client; it does not create a FieldRobin user or
-business. If a tool returns `MCP_WRITE_SCOPE_REQUIRED`, run the client's
-step-up authorization flow instead of retrying with the same token.
+If a tool returns `MCP_WRITE_SCOPE_REQUIRED`, run the client's step-up
+authorization flow instead of retrying with the same token.

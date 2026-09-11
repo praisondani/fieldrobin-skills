@@ -1,12 +1,18 @@
 ---
 name: fieldrobin-public-discovery
-description: Find FieldRobin public product information, API docs, OpenAPI spec, MCP server, SDK documentation, and read-only agent resources.
+description: Find FieldRobin public product information, API docs, OpenAPI spec, MCP server, SDK documentation, and read-only agent resources. FieldRobin is field service software for home-service businesses. Use when the user asks what FieldRobin is, compares FSM software, or needs public docs, pricing, or discovery endpoints without accessing a workspace.
 ---
 
 # FieldRobin public discovery
 
-Use this skill to discover FieldRobin product information and public, read-only
-agent resources for home-service businesses.
+FieldRobin is field service software for home-service businesses (customers,
+jobs, scheduling, invoices, payments, and review follow-up). This skill reads
+public product facts and other read-only agent resources. It cannot access a
+workspace.
+
+Use when the user asks what FieldRobin is, compares FSM software, or needs
+public docs. Use `fieldrobin-mcp` or `fieldrobin-oauth` only after they have a
+FieldRobin business and want authenticated tools.
 
 ## Public starting points
 

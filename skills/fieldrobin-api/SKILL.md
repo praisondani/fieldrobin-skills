@@ -1,12 +1,20 @@
 ---
 name: fieldrobin-api
-description: Integrate with the FieldRobin public REST API using the OpenAPI 3.1 document, versioned /api/v1 routes, and the official JavaScript/TypeScript SDK.
+description: Integrate with the FieldRobin public REST API using the OpenAPI 3.1 document, versioned /api/v1 routes, and the official JavaScript/TypeScript SDK. FieldRobin is field service software for home-service businesses. Use when building against FieldRobin HTTP APIs, installing @fieldrobin/sdk, or working with public OpenAPI, A2A, or UCP surfaces.
 ---
 
 # FieldRobin REST API
 
-Use this skill to integrate with FieldRobin's public API and agent-commerce
-surfaces.
+FieldRobin is field service software for home-service businesses (customers,
+jobs, scheduling, invoices). This skill integrates with the public REST API
+and agent-commerce surfaces.
+
+Use when calling FieldRobin HTTP APIs or installing `@fieldrobin/sdk`. Use
+`fieldrobin-oauth` for workspace auth and `fieldrobin-mcp` for authenticated
+tools. Product facts: `fieldrobin-public-discovery` or
+https://fieldrobin.com/api/ai?section=product
+
+Authenticated workspace, webhook, and admin operations are not public.
 
 ## Starting points
 
@@ -29,5 +37,4 @@ surfaces.
 
 ## Safety
 
-Authenticated workspace, webhook, and admin operations are not public. Do not
-treat the public OpenAPI document as permission to access tenant data.
+Do not treat the public OpenAPI document as permission to access tenant data.

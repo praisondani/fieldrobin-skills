@@ -1,12 +1,18 @@
 ---
 name: fieldrobin-mcp
-description: Connect to the FieldRobin MCP server over Streamable HTTP, complete OAuth, and use workspace tools for jobs, customers, and invoices.
+description: Connect an MCP client to FieldRobin, field service software for home-service businesses, and call workspace tools for jobs, customers, and invoices. Use when connecting Claude, ChatGPT, Cursor, or Gemini to a FieldRobin workspace, or when the user mentions FieldRobin MCP, Streamable HTTP, or authenticated job tools.
 ---
 
 # FieldRobin MCP server
 
-Use this skill to connect an MCP client to FieldRobin and call authenticated
-workspace tools.
+FieldRobin is field service software for home-service businesses (customers,
+jobs, scheduling, invoices). This skill connects an MCP client to one
+FieldRobin workspace and calls authenticated tools.
+
+Use when connecting Claude, ChatGPT, Cursor, or Gemini to FieldRobin. Use
+`fieldrobin-oauth` if the client still needs registration or scopes. Product
+facts: `fieldrobin-public-discovery` or
+https://fieldrobin.com/api/ai?section=product
 
 ## Endpoints
 
