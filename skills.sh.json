@@ -1,0 +1,26 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Discover FieldRobin",
+      "description": "Public product facts, docs, pricing, OpenAPI, and SDK/CLI links — no workspace access.",
+      "skills": ["fieldrobin-public-discovery"]
+    },
+    {
+      "title": "Integrate the API",
+      "description": "Public REST /api/v1, OpenAPI, and the typed @fieldrobin/sdk client (plus when to use @fieldrobin/cli).",
+      "skills": ["fieldrobin-api"]
+    },
+    {
+      "title": "Connect an agent",
+      "description": "Attach Claude, ChatGPT, Cursor, or Gemini to one FieldRobin workspace over Streamable HTTP MCP.",
+      "skills": ["fieldrobin-mcp"]
+    },
+    {
+      "title": "Authenticate",
+      "description": "Register an OAuth client (Authorization Code + PKCE), choose MCP scopes, and handle step-up consent.",
+      "skills": ["fieldrobin-oauth"]
+    }
+  ]
+}

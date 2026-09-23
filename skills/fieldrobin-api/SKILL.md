@@ -1,26 +1,22 @@
 ---
 name: fieldrobin-api
-description: Integrate with FieldRobin’s public REST API and the official @fieldrobin/sdk typed client (discovery, OpenAPI, A2A, UCP). FieldRobin is field service software for home-service businesses. Use when building HTTP clients, installing @fieldrobin/sdk, or working with /api/v1, OpenAPI, A2A, or UCP. Prefer @fieldrobin/cli for one-off terminal checks.
+description: Public REST API and @fieldrobin/sdk guide for FieldRobin (field service software for home-service businesses). Covers OpenAPI /api/v1, typed discovery + A2A + UCP client install, rate limits, and when to use @fieldrobin/cli instead. Use when building HTTP clients, installing @fieldrobin/sdk, or working with OpenAPI, A2A, or UCP.
 ---
 
 # FieldRobin REST API
 
-## What this skill is
+What it is: a guide to FieldRobin’s **public** REST API and the official
+`@fieldrobin/sdk` typed client.
 
-Guidance for calling FieldRobin’s **public** HTTP API and installing the
-official JavaScript/TypeScript SDK. FieldRobin is field service software for
-home-service businesses (customers, jobs, scheduling, invoices).
+What it does: points you at OpenAPI and `/api/v1`, explains public client rules
+(JSON errors, rate limits, idempotency), shows when to install
+`@fieldrobin/sdk` vs run `@fieldrobin/cli`, and keeps you off authenticated
+workspace routes unless you add OAuth (`fieldrobin-oauth`) or MCP
+(`fieldrobin-mcp`).
 
-## What it does
-
-- Point you at OpenAPI, versioning, and the developer portal
-- Explain public client rules (JSON errors, rate limits, idempotency keys)
-- Show when to install `@fieldrobin/sdk` vs use `@fieldrobin/cli`
-- Keep you off authenticated workspace, webhook, and admin routes unless you
-  intentionally add OAuth (`fieldrobin-oauth`) or MCP (`fieldrobin-mcp`)
-
-Use `fieldrobin-public-discovery` for product facts. Product overview:
-https://fieldrobin.com/api/ai?section=product
+FieldRobin is field service software for home-service businesses (customers,
+jobs, scheduling, invoices). Product facts:
+`fieldrobin-public-discovery` or https://fieldrobin.com/api/ai?section=product
 
 ## Starting points
 

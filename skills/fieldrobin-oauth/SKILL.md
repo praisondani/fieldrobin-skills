@@ -1,27 +1,23 @@
 ---
 name: fieldrobin-oauth
-description: Register an OAuth client (Authorization Code + PKCE) for a FieldRobin workspace so an agent or app can obtain MCP/API tokens. FieldRobin is field service software for home-service businesses. Use when connecting Claude, ChatGPT, Cursor, or an API client, or when the user mentions FieldRobin OAuth, PKCE, MCP scopes, or client registration.
+description: Register an OAuth client (Authorization Code + PKCE) for a FieldRobin workspace so an agent or app can obtain MCP/API tokens. Lists MCP scopes and step-up consent. FieldRobin is field service software for home-service businesses. Use when connecting Claude, ChatGPT, Cursor, or an API client, or when the user mentions FieldRobin OAuth, PKCE, MCP scopes, or client registration.
 ---
 
 # FieldRobin OAuth
 
-## What this skill is
+What it is: how to **register an OAuth client** and complete Authorization Code
+with PKCE against FieldRobin.
 
-How to **register an OAuth client** and complete Authorization Code with PKCE
-against FieldRobin. FieldRobin is field service software for home-service
-businesses (customers, jobs, scheduling, invoices).
+What it does: points you at protected-resource and authorization-server
+discovery URLs; lists MCP scopes (`mcp:read`, customer/job write scopes, legacy
+aliases); explains consent / step-up when a tool returns
+`MCP_WRITE_SCOPE_REQUIRED`; clarifies that registration creates a client only —
+not a user or business.
 
-## What it does
-
-- Point you at protected-resource and authorization-server discovery URLs
-- List MCP scopes (`mcp:read`, customer/job write scopes, legacy aliases)
-- Explain the consent / step-up flow when a tool returns
-  `MCP_WRITE_SCOPE_REQUIRED`
-- Clarify that registration creates a client only — it does not create a user
-  or business
-
-A FieldRobin business must already exist. After auth, use `fieldrobin-mcp` to
-call workspace tools. Product facts: `fieldrobin-public-discovery`.
+FieldRobin is field service software for home-service businesses (customers,
+jobs, scheduling, invoices). A FieldRobin business must already exist. After
+auth, use `fieldrobin-mcp` to call workspace tools. Product facts:
+`fieldrobin-public-discovery`.
 
 ## Discovery
 

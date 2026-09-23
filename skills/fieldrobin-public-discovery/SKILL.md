@@ -1,25 +1,22 @@
 ---
 name: fieldrobin-public-discovery
-description: Read FieldRobin public product facts, docs, pricing, OpenAPI, MCP server card, SDK/CLI links, and other read-only agent resources — no workspace access. FieldRobin is field service software for home-service businesses. Use when the user asks what FieldRobin is, compares FSM software, or needs public discovery endpoints without logging into an account.
+description: Read-only map of FieldRobin public product facts, docs, pricing, OpenAPI, MCP server card, and @fieldrobin/sdk + @fieldrobin/cli links — no workspace access. FieldRobin is field service software for home-service businesses. Use when the user asks what FieldRobin is, compares FSM software, or needs public discovery endpoints without logging into an account.
 ---
 
 # FieldRobin public discovery
 
-## What this skill is
+What it is: a map of FieldRobin’s **public, read-only** product and developer
+surfaces — not a workspace login.
 
-A map of FieldRobin’s **public, read-only** product and developer surfaces.
+What it does: answers “what is FieldRobin?” from approved public product JSON
+and Markdown; points agents at `/llms.txt`, `/api/ai`, search, docs, and the
+developer portal; links `@fieldrobin/sdk` (typed client) and `@fieldrobin/cli`
+(terminal health / discovery / OpenAPI / search); stays clear of authenticated
+routes (`/app`, private API, MCP tools).
+
 FieldRobin is field service software for home-service businesses (customers,
-jobs, scheduling, invoices, payments, and review follow-up).
-
-## What it does
-
-- Answer “what is FieldRobin?” from approved public product JSON and Markdown
-- Point agents at `/llms.txt`, `/api/ai`, search, docs, and developer portal
-- Link official packages: `@fieldrobin/sdk` (typed client) and `@fieldrobin/cli`
-  (terminal health / discovery / OpenAPI / search)
-- Stay clear of authenticated workspace routes (`/app`, private API, MCP tools)
-
-Use `fieldrobin-mcp` or `fieldrobin-oauth` only after the user has a FieldRobin
+jobs, scheduling, invoices, payments, and review follow-up). Use
+`fieldrobin-mcp` or `fieldrobin-oauth` only after the user has a FieldRobin
 business and wants authenticated tools.
 
 ## Public starting points

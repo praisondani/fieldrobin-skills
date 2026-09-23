@@ -10,7 +10,10 @@ public product facts. They do not replace a FieldRobin account.
 The FieldRobin product repository is private. **This repository**
 ([`praisondani/fieldrobin-skills`](https://github.com/praisondani/fieldrobin-skills))
 is the public skills.sh package. Keep `skills/` in the product monorepo identical
-to this repo and to `frontend/public/agent-skills/`.
+to this repo and to `frontend/public/agent-skills/`. Sync with
+`scripts/sync-public-package.sh skills --push`.
+
+Browse on skills.sh: https://www.skills.sh/praisondani/fieldrobin-skills
 
 ## Install
 
@@ -32,16 +35,16 @@ npx skills add https://fieldrobin.com/agent-skills/fieldrobin-public-discovery/S
 | Skill | What it is | What it does |
 | --- | --- | --- |
 | `fieldrobin-public-discovery` | Public product / docs map | Reads approved product facts, docs, pricing, and discovery URLs; links `@fieldrobin/sdk` and `@fieldrobin/cli`; never touches a workspace |
-| `fieldrobin-mcp` | Authenticated MCP guide | Connects Claude, ChatGPT, Cursor, or Gemini to one workspace over Streamable HTTP and calls job/customer tools |
 | `fieldrobin-api` | Public REST + SDK guide | Uses OpenAPI `/api/v1` and `@fieldrobin/sdk` (typed client); points to `@fieldrobin/cli` for terminal checks |
+| `fieldrobin-mcp` | Authenticated MCP guide | Connects Claude, ChatGPT, Cursor, or Gemini to one workspace over Streamable HTTP and calls job/customer tools |
 | `fieldrobin-oauth` | OAuth registration guide | Registers an Authorization Code + PKCE client and explains MCP scopes / step-up consent |
 
 | You say | Skill |
 | --- | --- |
 | "What is FieldRobin?" | `fieldrobin-public-discovery` |
+| "Use the FieldRobin REST API or SDK" | `fieldrobin-api` |
 | "Connect Claude to my FieldRobin jobs" | `fieldrobin-mcp` |
 | "Register an OAuth client for FieldRobin" | `fieldrobin-oauth` |
-| "Use the FieldRobin REST API or SDK" | `fieldrobin-api` |
 | "Check FieldRobin health from the terminal" | `@fieldrobin/cli` (see `fieldrobin-api` / public discovery) |
 
 Website index: `https://fieldrobin.com/.well-known/agent-skills/index.json`
