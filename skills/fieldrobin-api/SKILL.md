@@ -1,20 +1,26 @@
 ---
 name: fieldrobin-api
-description: Integrate with the FieldRobin public REST API using the OpenAPI 3.1 document, versioned /api/v1 routes, and the official JavaScript/TypeScript SDK. FieldRobin is field service software for home-service businesses. Use when building against FieldRobin HTTP APIs, installing @fieldrobin/sdk, or working with public OpenAPI, A2A, or UCP surfaces.
+description: Integrate with FieldRobin’s public REST API and the official @fieldrobin/sdk typed client (discovery, OpenAPI, A2A, UCP). FieldRobin is field service software for home-service businesses. Use when building HTTP clients, installing @fieldrobin/sdk, or working with /api/v1, OpenAPI, A2A, or UCP. Prefer @fieldrobin/cli for one-off terminal checks.
 ---
 
 # FieldRobin REST API
 
-FieldRobin is field service software for home-service businesses (customers,
-jobs, scheduling, invoices). This skill integrates with the public REST API
-and agent-commerce surfaces.
+## What this skill is
 
-Use when calling FieldRobin HTTP APIs or installing `@fieldrobin/sdk`. Use
-`fieldrobin-oauth` for workspace auth and `fieldrobin-mcp` for authenticated
-tools. Product facts: `fieldrobin-public-discovery` or
+Guidance for calling FieldRobin’s **public** HTTP API and installing the
+official JavaScript/TypeScript SDK. FieldRobin is field service software for
+home-service businesses (customers, jobs, scheduling, invoices).
+
+## What it does
+
+- Point you at OpenAPI, versioning, and the developer portal
+- Explain public client rules (JSON errors, rate limits, idempotency keys)
+- Show when to install `@fieldrobin/sdk` vs use `@fieldrobin/cli`
+- Keep you off authenticated workspace, webhook, and admin routes unless you
+  intentionally add OAuth (`fieldrobin-oauth`) or MCP (`fieldrobin-mcp`)
+
+Use `fieldrobin-public-discovery` for product facts. Product overview:
 https://fieldrobin.com/api/ai?section=product
-
-Authenticated workspace, webhook, and admin operations are not public.
 
 ## Starting points
 
@@ -22,7 +28,12 @@ Authenticated workspace, webhook, and admin operations are not public.
 - Base URL: `https://fieldrobin.com/api/v1`
 - Developer portal: `https://fieldrobin.com/developers`
 - Versioning policy: `https://fieldrobin.com/api-versioning.md`
-- SDK: `https://www.npmjs.com/package/@fieldrobin/sdk`
+- SDK: `https://www.npmjs.com/package/@fieldrobin/sdk` — typed JS/TS client for
+  public discovery, OpenAPI, A2A, and UCP
+  ([source](https://github.com/praisondani/fieldrobin-sdk))
+- CLI: `https://www.npmjs.com/package/@fieldrobin/cli` — terminal health,
+  discovery, OpenAPI, and public search
+  ([source](https://github.com/praisondani/fieldrobin-cli))
 - SDK documentation: `https://fieldrobin.com/sdk`
 
 ## Client rules
@@ -32,8 +43,9 @@ Authenticated workspace, webhook, and admin operations are not public.
   and `RateLimit-Policy`. A 429 includes `Retry-After`.
 - Write-like agent handoffs accept an optional `Idempotency-Key` header
   (maximum 128 characters).
-- Install the SDK with `npm install @fieldrobin/sdk` when you need a typed
-  client for public discovery, OpenAPI retrieval, A2A, and UCP checkout.
+- Install the SDK with `npm install @fieldrobin/sdk` in app code.
+- For quick checks without writing code:
+  `npx --yes @fieldrobin/cli discover` or `npm install --global @fieldrobin/cli`.
 
 ## Safety
 

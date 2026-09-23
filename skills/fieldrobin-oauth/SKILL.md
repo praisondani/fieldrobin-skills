@@ -1,20 +1,27 @@
 ---
 name: fieldrobin-oauth
-description: Register an OAuth client for FieldRobin, field service software for home-service businesses. Use when connecting Claude, ChatGPT, Cursor, or an API client to a FieldRobin workspace, or when the user mentions FieldRobin OAuth, PKCE, MCP scopes, or client registration.
+description: Register an OAuth client (Authorization Code + PKCE) for a FieldRobin workspace so an agent or app can obtain MCP/API tokens. FieldRobin is field service software for home-service businesses. Use when connecting Claude, ChatGPT, Cursor, or an API client, or when the user mentions FieldRobin OAuth, PKCE, MCP scopes, or client registration.
 ---
 
 # FieldRobin OAuth
 
-FieldRobin is field service software for home-service businesses (customers,
-jobs, scheduling, invoices). This skill registers an OAuth client so an
-agent or app can access one business workspace.
+## What this skill is
 
-Use when connecting Claude, ChatGPT, Cursor, or another MCP/API client to
-FieldRobin. Use `fieldrobin-mcp` after auth to call tools. Product facts:
-`fieldrobin-public-discovery` or https://fieldrobin.com/api/ai?section=product
+How to **register an OAuth client** and complete Authorization Code with PKCE
+against FieldRobin. FieldRobin is field service software for home-service
+businesses (customers, jobs, scheduling, invoices).
 
-A FieldRobin business must already exist. Registration creates an OAuth client;
-it does not create a user or business.
+## What it does
+
+- Point you at protected-resource and authorization-server discovery URLs
+- List MCP scopes (`mcp:read`, customer/job write scopes, legacy aliases)
+- Explain the consent / step-up flow when a tool returns
+  `MCP_WRITE_SCOPE_REQUIRED`
+- Clarify that registration creates a client only — it does not create a user
+  or business
+
+A FieldRobin business must already exist. After auth, use `fieldrobin-mcp` to
+call workspace tools. Product facts: `fieldrobin-public-discovery`.
 
 ## Discovery
 
@@ -32,9 +39,10 @@ it does not create a user or business.
 - `mcp:write` — broad compatibility write scope; prefer granular scopes
 - `mcp:use` — legacy read-only compatibility
 
-New registrations default to `mcp:read mcp:customers:write mcp:jobs:write`.
-The consent page lets the user choose read-only, customer-write, job-write, or
-both. Existing read-only clients keep their grant until they reconnect.
+Write-enabled deployments default to `mcp:read mcp:customers:write mcp:jobs:write`;
+read-only deployments default to `mcp:read`. The consent page lets the user
+choose read-only, customer-write, job-write, or both when those scopes are
+available. Existing read-only clients keep their grant until they reconnect.
 
 ## Flow
 

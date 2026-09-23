@@ -1,18 +1,23 @@
 ---
 name: fieldrobin-mcp
-description: Connect an MCP client to FieldRobin, field service software for home-service businesses, and call workspace tools for jobs, customers, and invoices. Use when connecting Claude, ChatGPT, Cursor, or Gemini to a FieldRobin workspace, or when the user mentions FieldRobin MCP, Streamable HTTP, or authenticated job tools.
+description: Connect an MCP client to one FieldRobin workspace and call authenticated tools for jobs, customers, and invoices over Streamable HTTP. FieldRobin is field service software for home-service businesses. Use when connecting Claude, ChatGPT, Cursor, or Gemini to FieldRobin MCP, or when the user mentions Streamable HTTP or authenticated job tools.
 ---
 
 # FieldRobin MCP server
 
-FieldRobin is field service software for home-service businesses (customers,
-jobs, scheduling, invoices). This skill connects an MCP client to one
-FieldRobin workspace and calls authenticated tools.
+## What this skill is
 
-Use when connecting Claude, ChatGPT, Cursor, or Gemini to FieldRobin. Use
-`fieldrobin-oauth` if the client still needs registration or scopes. Product
-facts: `fieldrobin-public-discovery` or
-https://fieldrobin.com/api/ai?section=product
+How to attach an MCP client to **one authenticated FieldRobin workspace** and
+call tools. FieldRobin is field service software for home-service businesses
+(customers, jobs, scheduling, invoices).
+
+## What it does
+
+- Give the Streamable HTTP endpoint, well-known alias, and server card
+- Show Claude / Gemini / ChatGPT connect commands
+- Explain read vs write scopes and when consent offers customer or job writes
+- Keep public discovery separate (`fieldrobin-public-discovery`); use
+  `fieldrobin-oauth` if the client still needs registration or scopes
 
 ## Endpoints
 
@@ -27,9 +32,10 @@ https://fieldrobin.com/api/ai?section=product
 - Gemini CLI: `gemini mcp add --scope user --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
 - ChatGPT / Codex: add the Streamable HTTP URL as a remote MCP server, then complete OAuth.
 
-New OAuth registrations request `mcp:read mcp:customers:write mcp:jobs:write`.
-The consent page lets the user grant read-only access, customer writes, job
-writes, or both.
+When direct writes are enabled, new OAuth registrations request
+`mcp:read mcp:customers:write mcp:jobs:write`; read-only deployments request
+`mcp:read`. The consent page lets the user grant read-only access, customer
+writes, job writes, or both when those scopes are available.
 
 ## Tool policy
 

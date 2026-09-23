@@ -1,18 +1,26 @@
 ---
 name: fieldrobin-public-discovery
-description: Find FieldRobin public product information, API docs, OpenAPI spec, MCP server, SDK documentation, and read-only agent resources. FieldRobin is field service software for home-service businesses. Use when the user asks what FieldRobin is, compares FSM software, or needs public docs, pricing, or discovery endpoints without accessing a workspace.
+description: Read FieldRobin public product facts, docs, pricing, OpenAPI, MCP server card, SDK/CLI links, and other read-only agent resources — no workspace access. FieldRobin is field service software for home-service businesses. Use when the user asks what FieldRobin is, compares FSM software, or needs public discovery endpoints without logging into an account.
 ---
 
 # FieldRobin public discovery
 
-FieldRobin is field service software for home-service businesses (customers,
-jobs, scheduling, invoices, payments, and review follow-up). This skill reads
-public product facts and other read-only agent resources. It cannot access a
-workspace.
+## What this skill is
 
-Use when the user asks what FieldRobin is, compares FSM software, or needs
-public docs. Use `fieldrobin-mcp` or `fieldrobin-oauth` only after they have a
-FieldRobin business and want authenticated tools.
+A map of FieldRobin’s **public, read-only** product and developer surfaces.
+FieldRobin is field service software for home-service businesses (customers,
+jobs, scheduling, invoices, payments, and review follow-up).
+
+## What it does
+
+- Answer “what is FieldRobin?” from approved public product JSON and Markdown
+- Point agents at `/llms.txt`, `/api/ai`, search, docs, and developer portal
+- Link official packages: `@fieldrobin/sdk` (typed client) and `@fieldrobin/cli`
+  (terminal health / discovery / OpenAPI / search)
+- Stay clear of authenticated workspace routes (`/app`, private API, MCP tools)
+
+Use `fieldrobin-mcp` or `fieldrobin-oauth` only after the user has a FieldRobin
+business and wants authenticated tools.
 
 ## Public starting points
 
@@ -23,6 +31,12 @@ FieldRobin business and want authenticated tools.
 - Public Markdown manifest: `https://fieldrobin.com/llms.txt`
 - Developer portal: `https://fieldrobin.com/developers`
 - Public A2A card: `https://fieldrobin.com/.well-known/agent-card.json`
+- SDK (`@fieldrobin/sdk`): `https://www.npmjs.com/package/@fieldrobin/sdk` —
+  typed JS/TS client for public discovery, OpenAPI, A2A, and UCP
+  ([source](https://github.com/praisondani/fieldrobin-sdk))
+- CLI (`@fieldrobin/cli`): `https://www.npmjs.com/package/@fieldrobin/cli` —
+  `npx --yes @fieldrobin/cli discover` for terminal checks
+  ([source](https://github.com/praisondani/fieldrobin-cli))
 
 ## Safe usage
 
