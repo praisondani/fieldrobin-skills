@@ -2,7 +2,7 @@
 
 Official skills for FieldRobin field service software for home-service businesses. They help users connect an agent to a workspace and help developers use FieldRobin's public API and OAuth.
 
-The product monorepo is private. This public repository contains six skills and the portable ChatGPT and Codex plugin package. The `skills/` files are synchronized with the monorepo and the website copies in `frontend/public/agent-skills/`. The `skills.sh.json` grouping manifest belongs at this repository root; the website copy does not include it.
+The product monorepo is private. This public repository contains six skills and the portable ChatGPT and Codex plugin package. The `skills/` files are synchronized with the monorepo and the website copies in `frontend/public/agent-skills/`. The `skills.sh.json` grouping manifest stays at this repository root; the website copy does not include it.
 
 Browse on [skills.sh](https://www.skills.sh/praisondani/fieldrobin-skills).
 
@@ -25,6 +25,7 @@ List the website's published skills and install one by name:
 
 ```sh
 npx skills add https://fieldrobin.com --list
+npx skills add https://fieldrobin.com --skill fieldrobin-mcp
 npx skills add https://fieldrobin.com --skill fieldrobin-operations
 ```
 
