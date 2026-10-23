@@ -3,22 +3,7 @@
   "mcpServers": {
     "fieldrobin": {
       "type": "streamable-http",
-      "url": "https://fieldrobin.com/api/v1/mcp",
-      "extensions": {
-        "com.openai": {
-          "auth": {
-            "type": "oauth",
-            "client": {
-              "mode": "dcr"
-            },
-            "baseScopes": [
-              "mcp:read",
-              "mcp:customers:write",
-              "mcp:jobs:write"
-            ]
-          }
-        }
-      }
+      "url": "https://fieldrobin.com/api/v1/mcp"
     }
   }
 }

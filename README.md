@@ -58,11 +58,14 @@ routes. Read a skill before installing it.
 ## ChatGPT and Codex plugin
 
 This repository root contains a portable Agent Plugins package: `plugin.json`,
-`mcp.json`, bundled skills, and the FieldRobin icon. It connects to the live
-FieldRobin MCP server with OAuth. The plugin can search workspace records and
-create customers or jobs when you explicitly ask and grant the matching write
-permission. It cannot update or delete records, send messages, or process
-payments.
+`mcp.json`, bundled skills, and the FieldRobin icon. The MCP entry uses only its
+portable `type` and `url` fields. FieldRobin publishes OAuth DCR and PKCE
+metadata; clients discover sign-in from the protected tool's bearer challenge.
+This keeps the bundled server compatible with Codex, which currently rejects
+the optional OpenAI `extensions` field in `mcp.json`. The plugin can search
+workspace records and create customers or jobs when you explicitly ask and
+grant the matching write permission. It cannot update or delete records, send
+messages, or process payments.
 
 FieldRobin is not listed in the public ChatGPT and Codex plugin directory yet.
 To connect it in ChatGPT now:

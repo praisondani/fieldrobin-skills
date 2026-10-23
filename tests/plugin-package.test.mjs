@@ -19,23 +19,13 @@ test("packages FieldRobin as a portable ChatGPT and Codex plugin", () => {
   assert.equal(openai?.onboardingSkill, "./skills/fieldrobin-setup/SKILL.md");
 });
 
-test("declares OAuth DCR for the live FieldRobin MCP service", () => {
+test("uses a Codex-compatible portable server entry and discovers OAuth from FieldRobin", () => {
   const server = mcp.mcpServers?.fieldrobin;
-  const auth = server?.extensions?.["com.openai"]?.auth;
 
-  // OpenAI's current OAuth guide requires this server extension even though
-  // Agent Plugins MCP schema 1.0.0 still rejects additional server properties.
   assert.equal(mcp.$schema, "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json");
   assert.equal(server?.type, "streamable-http");
   assert.equal(server?.url, "https://fieldrobin.com/api/v1/mcp");
-  assert.equal(auth?.type, "oauth");
-  assert.equal(auth?.client?.mode, "dcr");
-  assert.deepEqual(auth?.baseScopes, [
-    "mcp:read",
-    "mcp:customers:write",
-    "mcp:jobs:write",
-  ]);
-  assert.equal("clientSecret" in (auth ?? {}), false);
+  assert.deepEqual(Object.keys(server ?? {}).sort(), ["type", "url"]);
 });
 
 test("includes review coverage for supported and denied requests", () => {

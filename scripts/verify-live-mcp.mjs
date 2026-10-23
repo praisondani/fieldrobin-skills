@@ -53,10 +53,11 @@ async function main() {
     getJson(`${origin}/.well-known/oauth-protected-resource/api/v1/mcp`),
     getJson(`${origin}/.well-known/mcp/server-card.json`),
   ]);
-  const auth = mcpConfig.mcpServers.fieldrobin.extensions?.["com.openai"]?.auth;
-
   requireCondition(serverCard.serverUrl === endpoint, "The server card URL does not match mcp.json.");
-  requireCondition(auth?.type === "oauth" && auth?.client?.mode === "dcr", "mcp.json must configure OAuth DCR.");
+  requireCondition(
+    Object.keys(mcpConfig.mcpServers.fieldrobin).sort().join(",") === "type,url",
+    "Keep the portable MCP server entry to type and url so Codex can load the bundled server.",
+  );
   requireCondition(
     authorizationServer.registration_endpoint === `${origin}/api/oauth/register`,
     "OAuth discovery does not expose the expected dynamic registration endpoint.",
@@ -72,8 +73,8 @@ async function main() {
   );
 
   const supportedScopes = new Set(authorizationServer.scopes_supported ?? []);
-  for (const scope of auth.baseScopes ?? []) {
-    requireCondition(supportedScopes.has(scope), `OAuth discovery does not support configured scope ${scope}.`);
+  for (const scope of ["mcp:read", "mcp:customers:write", "mcp:jobs:write"]) {
+    requireCondition(supportedScopes.has(scope), `OAuth discovery does not support required scope ${scope}.`);
   }
 
   await callMcp(1, "initialize", {
@@ -84,6 +85,26 @@ async function main() {
   const tools = await callMcp(2, "tools/list");
   const toolNames = new Set((tools?.tools ?? []).map((tool) => tool.name));
   requireCondition(toolNames.size > 0, "The public MCP catalog returned no tools.");
+
+  const challengeResponse = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      accept: "application/json, text/event-stream",
+    },
+    body: JSON.stringify({
+      jsonrpc: "2.0",
+      id: 3,
+      method: "tools/call",
+      params: { name: "get-workspace-summary", arguments: {} },
+    }),
+  });
+  const authChallenge = challengeResponse.headers.get("www-authenticate") ?? "";
+  requireCondition(challengeResponse.status === 401, "The protected read tool did not request OAuth.");
+  requireCondition(
+    authChallenge.includes("Bearer") && authChallenge.includes("resource_metadata="),
+    "The protected read tool returned no OAuth resource-metadata challenge.",
+  );
 
   const positiveCases = packageManifest.extensions?.["com.openai"]?.review?.test_cases?.positive ?? [];
   const reviewedTools = new Set(
@@ -99,7 +120,7 @@ async function main() {
   }
 
   process.stdout.write(
-    `Verified ${endpoint}: OAuth DCR, PKCE S256, ${toolNames.size} public tool schemas, and ${reviewedTools.size} reviewed tools.\n`,
+    `Verified ${endpoint}: discovered OAuth DCR, PKCE S256, a bearer challenge, ${toolNames.size} public tool schemas, and ${reviewedTools.size} reviewed tools.\n`,
   );
 }
 
