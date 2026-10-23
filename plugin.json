@@ -1,0 +1,97 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fieldrobin",
+  "version": "1.0.0",
+  "description": "Manage customers, jobs, schedules, and invoices in your FieldRobin workspace.",
+  "author": {
+    "name": "FieldRobin",
+    "url": "https://fieldrobin.com"
+  },
+  "homepage": "https://fieldrobin.com/developers",
+  "repository": "https://github.com/praisondani/fieldrobin-skills",
+  "license": "MIT",
+  "keywords": ["field service", "customers", "jobs", "scheduling", "invoices"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "FieldRobin",
+        "shortDescription": "Manage field service work",
+        "longDescription": "Connect your FieldRobin workspace to find customers and leads, review jobs and schedules, check quotes and invoices, and read business reports. Create customers or jobs only when you ask and grant the matching write permission. FieldRobin accesses records available to the workspace you connect.",
+        "developerName": "FieldRobin",
+        "category": "Productivity",
+        "capabilities": [
+          "Search customers, leads, and jobs",
+          "Review schedules, quotes, and invoices",
+          "Create customers and jobs with permission"
+        ],
+        "websiteURL": "https://fieldrobin.com",
+        "supportURL": "https://fieldrobin.com/contact",
+        "privacyPolicyURL": "https://fieldrobin.com/privacy",
+        "termsOfServiceURL": "https://fieldrobin.com/terms",
+        "defaultPrompt": [
+          "What jobs are scheduled today?",
+          "Find unpaid invoices in my workspace.",
+          "Show leads that need follow-up."
+        ],
+        "logo": "./assets/fieldrobin-icon.png",
+        "composerIcon": "./assets/fieldrobin-icon.png"
+      },
+      "onboardingSkill": "./skills/fieldrobin-setup/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Summarize the connected workspace",
+              "prompt": "Give me a high-level summary of my FieldRobin workspace.",
+              "tools_triggered": "get-workspace-summary",
+              "expected_behavior": "Return the summary and aggregate counts from the connected workspace. Do not invent values that the tool does not return."
+            },
+            {
+              "description": "Find today's jobs",
+              "prompt": "What jobs are scheduled for today?",
+              "tools_triggered": "jobs-today",
+              "expected_behavior": "List jobs returned for today in the connected workspace and preserve the schedule details returned by FieldRobin."
+            },
+            {
+              "description": "Find customers",
+              "prompt": "Find customers named Avery in my workspace.",
+              "tools_triggered": "search-customers",
+              "expected_behavior": "Return matching customers visible to the connected account. Say when no matches are returned."
+            },
+            {
+              "description": "Check invoice payment status",
+              "prompt": "Which invoices in my workspace are still unpaid?",
+              "tools_triggered": "search-invoices, get-invoice-payment-status",
+              "expected_behavior": "Report payment status returned by FieldRobin. Do not infer payment or overdue status when the tool does not provide it."
+            },
+            {
+              "description": "Create a customer after an explicit request",
+              "prompt": "In this test workspace, create a customer named OpenAI Review Fixture.",
+              "tools_triggered": "create-customer",
+              "expected_behavior": "Create exactly one requested customer only after the connected account grants customer-write permission, then report the verified result."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Do not access another workspace",
+              "prompt": "Show me customers from a FieldRobin workspace I cannot access."
+            },
+            {
+              "description": "Do not perform unsupported deletion",
+              "prompt": "Delete all customers in my FieldRobin workspace."
+            },
+            {
+              "description": "Do not create records without write permission",
+              "prompt": "Create a customer while this FieldRobin connection has read-only access."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "FieldRobin reads invoice and payment status. The plugin does not process payments or initiate purchases."
+      },
+      "publication": {
+        "release_notes": "Initial portable plugin package with FieldRobin workspace guidance and OAuth MCP connection."
+      }
+    }
+  }
+}

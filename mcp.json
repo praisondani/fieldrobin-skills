@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "fieldrobin": {
+      "type": "streamable-http",
+      "url": "https://fieldrobin.com/api/v1/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            },
+            "baseScopes": [
+              "mcp:read",
+              "mcp:customers:write",
+              "mcp:jobs:write"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

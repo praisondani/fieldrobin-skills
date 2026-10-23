@@ -25,7 +25,12 @@ https://fieldrobin.com/api/ai?section=product
 
 - Claude Code: `claude mcp add --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
 - Gemini CLI: `gemini mcp add --scope user --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
-- ChatGPT / Codex: add the Streamable HTTP URL as a remote MCP server, then complete OAuth.
+- ChatGPT: open Plugins, select `+` > `Add custom MCP server`, enter the URL,
+  complete OAuth, review permissions, then select `Create as a plugin`. Install
+  it; in a chat, type `@` and select FieldRobin.
+- Codex CLI: run `codex mcp add fieldrobin --url https://fieldrobin.com/api/v1/mcp`,
+  then `codex mcp login fieldrobin --scopes mcp:read`. Add customer or job write
+  scopes only when needed.
 
 New OAuth registrations request `mcp:read mcp:customers:write mcp:jobs:write`.
 The consent page lets the user grant read-only access, customer writes, job
