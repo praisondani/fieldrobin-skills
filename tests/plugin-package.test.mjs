@@ -40,9 +40,11 @@ test("includes review coverage for supported and denied requests", () => {
     assert.ok(scenario.prompt);
     assert.ok(scenario.tools_triggered);
     assert.ok(scenario.expected_behavior);
+    assert.match(scenario.description, /Setup:/);
   }
   for (const scenario of cases?.negative ?? []) {
     assert.ok(scenario.prompt);
+    assert.match(scenario.description, /Expected behavior:/);
   }
   assert.equal(openai?.review?.commerce, false);
   assert.ok(!openai?.review?.demo_recording_url, "do not package a placeholder review video URL");

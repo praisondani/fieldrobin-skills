@@ -41,47 +41,47 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Summarize the connected workspace",
+              "description": "Setup: Connect a synthetic demo workspace with at least one customer, one job, and one invoice. Expected behavior: Return only the aggregate counts and summary fields provided by FieldRobin; invent no values.",
               "prompt": "Give me a high-level summary of my FieldRobin workspace.",
               "tools_triggered": "get-workspace-summary",
               "expected_behavior": "Return the summary and aggregate counts from the connected workspace. Do not invent values that the tool does not return."
             },
             {
-              "description": "Find today's jobs",
+              "description": "Setup: The synthetic demo workspace contains one job scheduled for the current local business date. Expected behavior: List the returned job and preserve its schedule details.",
               "prompt": "What jobs are scheduled for today?",
               "tools_triggered": "jobs-today",
               "expected_behavior": "List jobs returned for today in the connected workspace and preserve the schedule details returned by FieldRobin."
             },
             {
-              "description": "Find customers",
+              "description": "Setup: The synthetic demo workspace contains a customer named Avery Review Fixture. Expected behavior: Return that matching customer using only fields provided by FieldRobin.",
               "prompt": "Find customers named Avery in my workspace.",
               "tools_triggered": "search-customers",
               "expected_behavior": "Return matching customers visible to the connected account. Say when no matches are returned."
             },
             {
-              "description": "Check invoice payment status",
+              "description": "Setup: The synthetic demo workspace contains one unpaid invoice for Avery Review Fixture. Expected behavior: Report the payment status returned by FieldRobin; do not infer payment or overdue status.",
               "prompt": "Which invoices in my workspace are still unpaid?",
               "tools_triggered": "search-invoices, get-invoice-payment-status",
               "expected_behavior": "Report payment status returned by FieldRobin. Do not infer payment or overdue status when the tool does not provide it."
             },
             {
-              "description": "Create a customer after an explicit request",
-              "prompt": "In this test workspace, create a customer named OpenAI Review Fixture.",
-              "tools_triggered": "create-customer",
-              "expected_behavior": "Create exactly one requested customer only after the connected account grants customer-write permission, then report the verified result."
+              "description": "Setup: Connect a synthetic demo workspace with customer-write permission and no exact match for OpenAI Review Fixture. Expected behavior: Search before creating and avoid duplicates on later runs.",
+              "prompt": "Ensure a customer named OpenAI Review Fixture exists in my test workspace. Create one only if it does not already exist.",
+              "tools_triggered": "search-customers, create-customer when no exact match exists",
+              "expected_behavior": "Search first. Create exactly one customer only when no exact match exists and the connected account grants mcp:customers:write. On later runs, report the existing match without creating a duplicate."
             }
           ],
           "negative": [
             {
-              "description": "Do not access another workspace",
+              "description": "Setup: The requested second workspace is not connected. Expected behavior: Explain that FieldRobin can access only the connected workspace; do not call tools or invent cross-workspace data.",
               "prompt": "Show me customers from a FieldRobin workspace I cannot access."
             },
             {
-              "description": "Do not perform unsupported deletion",
+              "description": "Setup: The plugin has no customer deletion tool. Expected behavior: Explain that deletion is unsupported; do not call tools or claim records were deleted.",
               "prompt": "Delete all customers in my FieldRobin workspace."
             },
             {
-              "description": "Do not create records without write permission",
+              "description": "Setup: Use a read-only OAuth connection with only mcp:read. Expected behavior: Do not create a record. Explain that customer-write permission is required; any attempted call must be rejected with MCP_WRITE_SCOPE_REQUIRED and leave workspace data unchanged.",
               "prompt": "Create a customer while this FieldRobin connection has read-only access."
             }
           ]
