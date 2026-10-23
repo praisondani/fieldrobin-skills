@@ -1,62 +1,46 @@
 # FieldRobin agent skills
 
-Official FieldRobin skills for MCP, REST API, OAuth, and public product discovery.
+Official skills for FieldRobin field service software for home-service businesses. They help users connect an agent to a workspace and help developers use FieldRobin's public API and OAuth.
 
-FieldRobin is field service software for home-service businesses: customers,
-jobs, scheduling, estimates, invoices, payments, and review follow-up. These
-skills help an agent or developer connect to a FieldRobin workspace or read
-public product facts. They do not replace a FieldRobin account.
+The product monorepo is private. This public repository contains six skills and the portable ChatGPT and Codex plugin package. The `skills/` files are synchronized with the monorepo and the website copies in `frontend/public/agent-skills/`. The `skills.sh.json` grouping manifest stays at this repository root; the website copy does not include it.
 
-The FieldRobin product repository is private. **This repository**
-([`praisondani/fieldrobin-skills`](https://github.com/praisondani/fieldrobin-skills))
-is the public skills.sh package. The product monorepo's `skills/` directory is
-the source for these four `SKILL.md` files. Keep those files and this README
-synced with `frontend/public/agent-skills/`. The `skills.sh.json` grouping
-manifest stays at this repository root; the website copy does not include it.
-Sync this repository with `scripts/sync-public-package.sh skills --push`.
-
-Browse on skills.sh: https://www.skills.sh/praisondani/fieldrobin-skills
+Browse on [skills.sh](https://www.skills.sh/praisondani/fieldrobin-skills).
 
 ## Who these help
 
-- **FieldRobin users:** connect an OAuth-capable agent to a business workspace
-  over MCP. Ask it to look up customers, jobs, and operations. Customer and job
-  creation requires the matching OAuth write scope.
-- **Developers:** use the API and OAuth skills to build an integration, the SDK
-  for typed public API calls, and the CLI for health, discovery, OpenAPI, and
-  search. Current npm releases do not include MCP clients. Use a native MCP
-  client for authenticated workspace tools.
+- **FieldRobin users:** connect an OAuth-capable agent, review customers, leads, jobs, schedules, invoices, and reports, and create customers or jobs when requested and authorized.
+- **Developers:** use the REST API, OpenAPI, OAuth, JavaScript/TypeScript SDK, CLI, and MCP tools to build or troubleshoot an integration.
+
+The current npm SDK and CLI releases cover public discovery and API tools. The next SDK and CLI versions add authenticated MCP clients. Until those versions are published, use a native OAuth-capable MCP client for workspace tools.
 
 ## Install
+
+Install all skills:
 
 ```sh
 npx skills add praisondani/fieldrobin-skills
 ```
 
-To connect an agent to a workspace, add the remote MCP server at
-`https://fieldrobin.com/api/v1/mcp` and complete OAuth consent. Installing a
-skill provides instructions; it does not grant workspace access.
-
-List skills from the website's discovery index:
+List the website's published skills and install one by name:
 
 ```sh
 npx skills add https://fieldrobin.com --list
-```
-
-Install one skill from the website:
-
-```sh
 npx skills add https://fieldrobin.com --skill fieldrobin-mcp
+npx skills add https://fieldrobin.com --skill fieldrobin-operations
 ```
+
+Installing a skill provides instructions; it does not grant workspace access. Connect to `https://fieldrobin.com/api/v1/mcp` and complete OAuth to use workspace tools.
 
 ## Skills
 
-| Skill | What it is | What it does |
-| --- | --- | --- |
-| `fieldrobin-public-discovery` | Public product / docs map | Reads approved public facts and discovery URLs; links `@fieldrobin/sdk` and `@fieldrobin/cli`; does not access workspace data |
-| `fieldrobin-api` | Public REST + SDK guide | Uses OpenAPI and public endpoints; explains OAuth-backed MCP for workspace tools |
-| `fieldrobin-mcp` | Authenticated MCP guide | Connects an OAuth-capable MCP client to one workspace over Streamable HTTP |
-| `fieldrobin-oauth` | OAuth registration guide | Registers an Authorization Code + PKCE client and explains MCP scopes / step-up consent |
+| Skill | Use it for |
+| --- | --- |
+| `fieldrobin-public-discovery` | Public product facts, pricing, docs, OpenAPI, and discovery URLs |
+| `fieldrobin-api` | REST API, OpenAPI, SDK, CLI, and integration guidance |
+| `fieldrobin-mcp` | Connecting an MCP client to one authenticated workspace |
+| `fieldrobin-oauth` | OAuth client registration, PKCE, scopes, and step-up consent |
+| `fieldrobin-operations` | Reviewing workspace records or creating a customer or job |
+| `fieldrobin-setup` | Connecting the plugin and choosing workspace permissions |
 
 | You say | Skill |
 | --- | --- |
@@ -64,17 +48,45 @@ npx skills add https://fieldrobin.com --skill fieldrobin-mcp
 | "Build a FieldRobin integration with the REST API, SDK, or CLI" | `fieldrobin-api` |
 | "Connect Claude to my FieldRobin jobs" | `fieldrobin-mcp` |
 | "Register an OAuth client for FieldRobin" | `fieldrobin-oauth` |
-| "Check FieldRobin health, discover capabilities, inspect OpenAPI, or search public products from the terminal" | `@fieldrobin/cli` (see `fieldrobin-api`) |
+| "Review today's jobs or unpaid invoices" | `fieldrobin-operations` |
+| "Connect the FieldRobin plugin" | `fieldrobin-setup` |
 
-Website index: `https://fieldrobin.com/.well-known/agent-skills/index.json`
+## Public packages
 
-Related public packages (not the private product monorepo):
+These packages are separate from the private product monorepo:
 
-- [`@fieldrobin/sdk`](https://www.npmjs.com/package/@fieldrobin/sdk) — source: [`praisondani/fieldrobin-sdk`](https://github.com/praisondani/fieldrobin-sdk)
-- [`@fieldrobin/cli`](https://www.npmjs.com/package/@fieldrobin/cli) — source: [`praisondani/fieldrobin-cli`](https://github.com/praisondani/fieldrobin-cli)
+- [`@fieldrobin/sdk`](https://www.npmjs.com/package/@fieldrobin/sdk) — [source](https://github.com/praisondani/fieldrobin-sdk)
+- [`@fieldrobin/cli`](https://www.npmjs.com/package/@fieldrobin/cli) — [source](https://github.com/praisondani/fieldrobin-cli)
 
-## Safety
+## ChatGPT and Codex plugin
 
-These skills describe public FieldRobin endpoints and the authenticated MCP
-OAuth flow. They do not include tenant data, API tokens, or private workspace
-routes. Read a skill before installing it.
+The repository root contains a portable plugin package: `plugin.json`, `mcp.json`, six bundled skills, and the FieldRobin icon. It connects to the live MCP service and supports workspace reads plus customer and job creation with the matching write permission. It does not update or delete records, send messages, or process payments.
+
+The MCP entry contains only `type` and `url`. Codex currently drops packaged servers with an `extensions` field; see [issue #53658](https://github.com/openai/codex/issues/53658). FieldRobin publishes OAuth DCR and PKCE metadata, and protected tools return a bearer challenge so clients can discover sign-in.
+
+FieldRobin is not listed in the public ChatGPT and Codex plugin directory yet. To use the live server in ChatGPT:
+
+1. Open Plugins and select `+` > `Add custom MCP server`.
+2. Enter `https://fieldrobin.com/api/v1/mcp` and complete FieldRobin OAuth.
+3. Grant `mcp:read` for lookups. Grant `mcp:customers:write` or `mcp:jobs:write` only if you want the plugin to create those records.
+4. Review the risk notice, select `Create as a plugin`, and install it.
+5. In a chat, type `@` and select FieldRobin.
+
+To connect Codex CLI, run:
+
+```sh
+codex mcp add fieldrobin --url https://fieldrobin.com/api/v1/mcp
+codex mcp login fieldrobin --scopes mcp:read
+```
+
+The OpenAI public directory submission still needs a verified publisher selection, country targeting, a synthetic demo workspace, reviewer access entered through OpenAI's secure portal, and a reviewer-accessible recording. Keep credentials and client secrets out of this repository and the plugin ZIP.
+
+## Verify and package
+
+```sh
+node --test tests/plugin-package.test.mjs
+node scripts/verify-live-mcp.mjs
+node scripts/package-plugin.mjs
+```
+
+The live check verifies OAuth discovery and the public tool catalog without connecting to a workspace or reading customer data. The package script creates a ZIP with its files at the archive root.

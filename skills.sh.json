@@ -21,6 +21,16 @@
       "title": "Authenticate",
       "description": "Register an OAuth client (Authorization Code + PKCE), choose MCP scopes, and handle step-up consent.",
       "skills": ["fieldrobin-oauth"]
+    },
+    {
+      "title": "Use FieldRobin",
+      "description": "Review customers, leads, jobs, schedules, invoices, and reports in a connected workspace; create customers or jobs only when requested and authorized.",
+      "skills": ["fieldrobin-operations"]
+    },
+    {
+      "title": "Set up the FieldRobin plugin",
+      "description": "Connect or reconnect FieldRobin and choose the workspace permissions needed for the task.",
+      "skills": ["fieldrobin-setup"]
     }
   ]
 }
