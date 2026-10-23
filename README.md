@@ -24,8 +24,8 @@ Browse on skills.sh: https://www.skills.sh/praisondani/fieldrobin-skills
   creation requires the matching OAuth write scope.
 - **Developers:** use the API and OAuth skills to build an integration, the SDK
   for typed public API calls, and the CLI for health, discovery, OpenAPI, and
-  search. Use a native MCP client for workspace tools until npm package 0.2.0
-  includes the SDK and CLI MCP clients.
+  search. Current npm releases do not include MCP clients. Use a native MCP
+  client for authenticated workspace tools.
 
 ## Install
 
@@ -55,7 +55,7 @@ npx skills add https://fieldrobin.com --skill fieldrobin-mcp
 | --- | --- | --- |
 | `fieldrobin-public-discovery` | Public product / docs map | Reads approved public facts and discovery URLs; links `@fieldrobin/sdk` and `@fieldrobin/cli`; does not access workspace data |
 | `fieldrobin-api` | Public REST + SDK guide | Uses OpenAPI and public endpoints; explains OAuth-backed MCP for workspace tools |
-| `fieldrobin-mcp` | Authenticated MCP guide | Connects an OAuth-capable MCP client, SDK, or CLI to one workspace over Streamable HTTP |
+| `fieldrobin-mcp` | Authenticated MCP guide | Connects an OAuth-capable MCP client to one workspace over Streamable HTTP |
 | `fieldrobin-oauth` | OAuth registration guide | Registers an Authorization Code + PKCE client and explains MCP scopes / step-up consent |
 
 | You say | Skill |
@@ -64,7 +64,7 @@ npx skills add https://fieldrobin.com --skill fieldrobin-mcp
 | "Build a FieldRobin integration with the REST API, SDK, or CLI" | `fieldrobin-api` |
 | "Connect Claude to my FieldRobin jobs" | `fieldrobin-mcp` |
 | "Register an OAuth client for FieldRobin" | `fieldrobin-oauth` |
-| "Check FieldRobin health or call MCP tools from the terminal" | `@fieldrobin/cli` (see `fieldrobin-api` / `fieldrobin-mcp`) |
+| "Check FieldRobin health, discover capabilities, inspect OpenAPI, or search public products from the terminal" | `@fieldrobin/cli` (see `fieldrobin-api`) |
 
 Website index: `https://fieldrobin.com/.well-known/agent-skills/index.json`
 

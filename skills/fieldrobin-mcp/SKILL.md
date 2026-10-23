@@ -1,6 +1,6 @@
 ---
 name: fieldrobin-mcp
-description: Connect an OAuth-capable MCP client, SDK, or CLI to one FieldRobin workspace over Streamable HTTP. Use when calling authenticated customer, job, invoice, or other workspace tools.
+description: Connect an OAuth-capable MCP client to one FieldRobin workspace over Streamable HTTP. Use when calling authenticated customer, job, invoice, or other workspace tools.
 ---
 
 # FieldRobin MCP server
@@ -52,11 +52,6 @@ writes, job writes, or both when those scopes are available.
 
 ## Developer clients
 
-The current npm SDK and CLI releases do not include MCP client support yet. Use
-a native MCP client with the endpoint above for workspace tools. The upcoming
-npm `0.2.0` packages will add `FieldRobinMcpClient` and `fieldrobin mcp` commands.
-
-After those package versions are published, set `FIELDROBIN_MCP_TOKEN` in a
-protected process environment. The CLI will require `--approve` for tools that
-may change workspace data. OAuth scopes remain the server’s authorization
-boundary.
+Current npm SDK and CLI releases do not include MCP client support. Use a
+native MCP client with the endpoint above for workspace tools. OAuth scopes
+remain the server’s authorization boundary.

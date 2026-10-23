@@ -1,6 +1,6 @@
 ---
 name: fieldrobin-oauth
-description: Register an OAuth client with Authorization Code + PKCE for FieldRobin MCP workspace tools. Lists MCP scopes, consent, and step-up. Use when connecting an OAuth-capable MCP client, SDK, or CLI to a FieldRobin business.
+description: Register an OAuth client with Authorization Code + PKCE for FieldRobin MCP workspace tools. Lists MCP scopes, consent, and step-up. Use when connecting a native MCP client to a FieldRobin business.
 ---
 
 # FieldRobin OAuth
@@ -15,8 +15,8 @@ token grants access only to the MCP tools and business selected during consent.
 
 FieldRobin is field service software for home-service businesses (customers,
 jobs, scheduling, invoices). A FieldRobin business must already exist. After
-auth, use `fieldrobin-mcp`, `FieldRobinMcpClient`, or the CLI to call workspace
-tools. Product facts:
+auth, connect a native MCP client to call workspace tools. Current npm SDK and
+CLI releases do not include MCP client support. Product facts:
 `fieldrobin-public-discovery`.
 
 ## Discovery
@@ -46,6 +46,6 @@ Use Authorization Code with PKCE (`S256`) and a registered redirect URI.
 If a tool returns `MCP_WRITE_SCOPE_REQUIRED`, run the client's step-up
 authorization flow instead of retrying with the same token.
 
-For the SDK, pass the access token to `FieldRobinMcpClient`. For the CLI, set
-`FIELDROBIN_MCP_TOKEN` in the process environment; do not put tokens in command
-arguments or source control. The CLI requires `--approve` before a write tool.
+Use the OAuth token with the native MCP client. Do not put tokens in command
+arguments or source control. The server checks OAuth scopes before each tool
+call.

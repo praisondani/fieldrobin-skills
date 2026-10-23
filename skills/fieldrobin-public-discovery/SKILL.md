@@ -10,9 +10,10 @@ surfaces — not a workspace login.
 
 What it does: answers “what is FieldRobin?” from approved public product JSON
 and Markdown; points agents at `/llms.txt`, `/api/ai`, search, docs, and the
-developer portal; links `@fieldrobin/sdk` (public API and OAuth-backed MCP
-client) and `@fieldrobin/cli` (health, discovery, OpenAPI, search, and MCP
-tools). Public discovery does not return workspace data.
+developer portal; links `@fieldrobin/sdk` for public API calls and
+`@fieldrobin/cli` for health, discovery, OpenAPI, and search. Current npm
+releases do not include MCP clients. Public discovery does not return workspace
+data; use a native MCP client for authenticated workspace tools.
 
 FieldRobin is field service software for home-service businesses (customers,
 jobs, scheduling, invoices, payments, and review follow-up). Use
@@ -29,8 +30,7 @@ business and wants authenticated tools.
 - Developer portal: `https://fieldrobin.com/developers`
 - Public A2A card: `https://fieldrobin.com/.well-known/agent-card.json`
 - SDK (`@fieldrobin/sdk`): `https://www.npmjs.com/package/@fieldrobin/sdk` —
-  typed JS/TS client for public discovery, OpenAPI, A2A, UCP, and OAuth-backed
-  MCP tools
+  typed JS/TS client for public discovery, OpenAPI, A2A, and UCP
   ([source](https://github.com/praisondani/fieldrobin-sdk))
 - CLI (`@fieldrobin/cli`): `https://www.npmjs.com/package/@fieldrobin/cli` —
   `npx --yes @fieldrobin/cli discover` for terminal checks

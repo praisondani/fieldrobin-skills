@@ -9,12 +9,12 @@
     },
     {
       "title": "Integrate the API",
-      "description": "Public REST /api/v1, OpenAPI, SDK methods, and when to use OAuth-backed MCP tools or the CLI.",
+      "description": "Public REST /api/v1, OpenAPI, SDK methods, CLI commands, and when to use authenticated MCP tools.",
       "skills": ["fieldrobin-api"]
     },
     {
       "title": "Connect an agent",
-      "description": "Connect an OAuth-capable MCP client to one FieldRobin workspace over Streamable HTTP. SDK and CLI MCP clients are planned for npm 0.2.0.",
+      "description": "Connect a native OAuth-capable MCP client to one FieldRobin workspace over Streamable HTTP.",
       "skills": ["fieldrobin-mcp"]
     },
     {
