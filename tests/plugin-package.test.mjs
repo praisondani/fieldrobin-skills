@@ -14,6 +14,8 @@ test("packages FieldRobin as a portable ChatGPT and Codex plugin", () => {
   assert.equal(plugin.name, "fieldrobin");
   assert.equal(plugin.version, "1.0.0");
   assert.equal(openai?.interface?.displayName, "FieldRobin");
+  assert.equal(openai?.interface?.websiteURL, "https://fieldrobin.com/chatgpt");
+  assert.equal(openai?.interface?.category, "Business & Operations");
   assert.ok(openai?.interface?.privacyPolicyURL?.startsWith("https://fieldrobin.com/"));
   assert.ok(openai?.interface?.supportURL?.startsWith("https://fieldrobin.com/"));
   assert.equal(openai?.interface?.defaultPrompt?.length, 3);

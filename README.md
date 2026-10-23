@@ -79,7 +79,7 @@ codex mcp add fieldrobin --url https://fieldrobin.com/api/v1/mcp
 codex mcp login fieldrobin --scopes mcp:read
 ```
 
-The OpenAI public directory submission still needs a synthetic demo workspace, reviewer credentials entered through OpenAI's secure portal, and a reviewer-accessible recording. Keep those credentials and client secrets out of this repository and the plugin ZIP.
+The OpenAI public directory submission still needs a verified publisher selection, country targeting, a synthetic demo workspace, reviewer access entered through OpenAI's secure portal, and a reviewer-accessible recording. Keep credentials and client secrets out of this repository and the plugin ZIP.
 
 ## Verify and package
 
