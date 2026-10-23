@@ -62,6 +62,8 @@ These packages are separate from the private product monorepo:
 
 The repository root contains a portable plugin package: `plugin.json`, `mcp.json`, six bundled skills, and the FieldRobin icon. It connects to the live MCP service and supports workspace reads plus customer and job creation with the matching write permission. It does not update or delete records, send messages, or process payments.
 
+Download the [FieldRobin plugin bundle v1.0.0](https://github.com/praisondani/fieldrobin-skills/releases/download/v1.0.0/fieldrobin-1.0.0.zip) for clients that import plugin ZIP files.
+
 The MCP entry contains only `type` and `url`. Codex currently drops packaged servers with an `extensions` field; see [issue #53658](https://github.com/openai/codex/issues/53658). FieldRobin publishes OAuth DCR and PKCE metadata, and protected tools return a bearer challenge so clients can discover sign-in.
 
 FieldRobin is not listed in the public ChatGPT and Codex plugin directory yet. To use the live server in ChatGPT:
