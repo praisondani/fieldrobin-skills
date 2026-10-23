@@ -1,0 +1,36 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Discover FieldRobin",
+      "description": "Public product facts, docs, pricing, OpenAPI, and SDK/CLI links. Public discovery does not access workspace data.",
+      "skills": ["fieldrobin-public-discovery"]
+    },
+    {
+      "title": "Integrate the API",
+      "description": "Public REST /api/v1, OpenAPI, SDK methods, CLI commands, and when to use authenticated MCP tools.",
+      "skills": ["fieldrobin-api"]
+    },
+    {
+      "title": "Connect an agent",
+      "description": "Connect a native OAuth-capable MCP client to one FieldRobin workspace over Streamable HTTP.",
+      "skills": ["fieldrobin-mcp"]
+    },
+    {
+      "title": "Authenticate",
+      "description": "Register an OAuth client (Authorization Code + PKCE), choose MCP scopes, and handle step-up consent.",
+      "skills": ["fieldrobin-oauth"]
+    },
+    {
+      "title": "Use FieldRobin",
+      "description": "Review customers, leads, jobs, schedules, invoices, and reports in a connected workspace; create customers or jobs only when requested and authorized.",
+      "skills": ["fieldrobin-operations"]
+    },
+    {
+      "title": "Set up the FieldRobin plugin",
+      "description": "Connect or reconnect FieldRobin and choose the workspace permissions needed for the task.",
+      "skills": ["fieldrobin-setup"]
+    }
+  ]
+}

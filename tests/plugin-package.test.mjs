@@ -4,6 +4,7 @@ import { test } from "node:test";
 
 const plugin = JSON.parse(readFileSync(new URL("../plugin.json", import.meta.url), "utf8"));
 const mcp = JSON.parse(readFileSync(new URL("../mcp.json", import.meta.url), "utf8"));
+const skillsManifest = JSON.parse(readFileSync(new URL("../skills.sh.json", import.meta.url), "utf8"));
 const readme = readFileSync(new URL("../README.md", import.meta.url), "utf8");
 const mcpSkill = readFileSync(new URL("../skills/fieldrobin-mcp/SKILL.md", import.meta.url), "utf8");
 const openai = plugin.extensions?.["com.openai"];
@@ -63,6 +64,23 @@ test("bundles user workflows and all referenced listing assets", () => {
   assert.match(skill, /^---\nname: fieldrobin-setup/m);
   assert.match(skill, /mcp:customers:write/);
   assert.match(skill, /mcp:jobs:write/);
+});
+
+test("publishes all six bundled skills in the skills.sh grouping manifest", () => {
+  const groupedSkills = skillsManifest.groupings.flatMap((group) => group.skills);
+  const expectedSkills = [
+    "fieldrobin-api",
+    "fieldrobin-mcp",
+    "fieldrobin-oauth",
+    "fieldrobin-operations",
+    "fieldrobin-public-discovery",
+    "fieldrobin-setup",
+  ];
+
+  for (const name of expectedSkills) {
+    assert.ok(groupedSkills.includes(name), `${name} must be discoverable from skills.sh`);
+    readFileSync(new URL(`../skills/${name}/SKILL.md`, import.meta.url), "utf8");
+  }
 });
 
 test("documents skill and ChatGPT plugin install paths accurately", () => {

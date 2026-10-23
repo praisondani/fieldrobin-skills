@@ -1,18 +1,24 @@
 ---
 name: fieldrobin-public-discovery
-description: Find FieldRobin public product information, API docs, OpenAPI spec, MCP server, SDK documentation, and read-only agent resources. FieldRobin is field service software for home-service businesses. Use when the user asks what FieldRobin is, compares FSM software, or needs public docs, pricing, or discovery endpoints without accessing a workspace.
+description: Read-only guide to FieldRobin product facts, docs, pricing, OpenAPI, MCP discovery, and SDK/CLI links. Public discovery needs no workspace access. Use when answering FieldRobin product questions or finding public API resources.
 ---
 
 # FieldRobin public discovery
 
-FieldRobin is field service software for home-service businesses (customers,
-jobs, scheduling, invoices, payments, and review follow-up). This skill reads
-public product facts and other read-only agent resources. It cannot access a
-workspace.
+What it is: a map of FieldRobin’s **public, read-only** product and developer
+surfaces — not a workspace login.
 
-Use when the user asks what FieldRobin is, compares FSM software, or needs
-public docs. Use `fieldrobin-mcp` or `fieldrobin-oauth` only after they have a
-FieldRobin business and want authenticated tools.
+What it does: answers “what is FieldRobin?” from approved public product JSON
+and Markdown; points agents at `/llms.txt`, `/api/ai`, search, docs, and the
+developer portal; links `@fieldrobin/sdk` for public API calls and
+`@fieldrobin/cli` for health, discovery, OpenAPI, and search. Current npm
+releases do not include MCP clients. Public discovery does not return workspace
+data; use a native MCP client for authenticated workspace tools.
+
+FieldRobin is field service software for home-service businesses (customers,
+jobs, scheduling, invoices, payments, and review follow-up). Use
+`fieldrobin-mcp` or `fieldrobin-oauth` only after the user has a FieldRobin
+business and wants authenticated tools.
 
 ## Public starting points
 
@@ -23,6 +29,12 @@ FieldRobin business and want authenticated tools.
 - Public Markdown manifest: `https://fieldrobin.com/llms.txt`
 - Developer portal: `https://fieldrobin.com/developers`
 - Public A2A card: `https://fieldrobin.com/.well-known/agent-card.json`
+- SDK (`@fieldrobin/sdk`): `https://www.npmjs.com/package/@fieldrobin/sdk` —
+  typed JS/TS client for public discovery, OpenAPI, A2A, and UCP
+  ([source](https://github.com/praisondani/fieldrobin-sdk))
+- CLI (`@fieldrobin/cli`): `https://www.npmjs.com/package/@fieldrobin/cli` —
+  `npx --yes @fieldrobin/cli discover` for terminal checks
+  ([source](https://github.com/praisondani/fieldrobin-cli))
 
 ## Safe usage
 
