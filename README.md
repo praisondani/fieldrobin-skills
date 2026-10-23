@@ -9,11 +9,22 @@ public product facts. They do not replace a FieldRobin account.
 
 The FieldRobin product repository is private. **This repository**
 ([`praisondani/fieldrobin-skills`](https://github.com/praisondani/fieldrobin-skills))
-is the public skills.sh package. Keep `skills/` in the product monorepo identical
-to this repo and to `frontend/public/agent-skills/`. Sync with
-`scripts/sync-public-package.sh skills --push`.
+is the public skills.sh package. The product monorepo's `skills/` directory is
+the source for these four `SKILL.md` files. Keep those files and this README
+synced with `frontend/public/agent-skills/`. The `skills.sh.json` grouping
+manifest stays at this repository root; the website copy does not include it.
+Sync this repository with `scripts/sync-public-package.sh skills --push`.
 
 Browse on skills.sh: https://www.skills.sh/praisondani/fieldrobin-skills
+
+## Who these help
+
+- **FieldRobin users:** connect an OAuth-capable agent to a business workspace
+  over MCP. Ask it to look up customers, jobs, and operations. Customer and job
+  creation requires the matching OAuth write scope.
+- **Developers:** use the API and OAuth skills to build an integration, the SDK
+  for typed JavaScript/TypeScript calls, and the CLI for public API checks and
+  one-off MCP calls.
 
 ## Install
 
@@ -21,31 +32,38 @@ Browse on skills.sh: https://www.skills.sh/praisondani/fieldrobin-skills
 npx skills add praisondani/fieldrobin-skills
 ```
 
-Install one skill from the public website:
+To connect an agent to a workspace, add the remote MCP server at
+`https://fieldrobin.com/api/v1/mcp` and complete OAuth consent. Installing a
+skill provides instructions; it does not grant workspace access.
+
+List skills from the website's discovery index:
 
 ```sh
-npx skills add https://fieldrobin.com/agent-skills/fieldrobin-mcp/SKILL.md
-npx skills add https://fieldrobin.com/agent-skills/fieldrobin-api/SKILL.md
-npx skills add https://fieldrobin.com/agent-skills/fieldrobin-oauth/SKILL.md
-npx skills add https://fieldrobin.com/agent-skills/fieldrobin-public-discovery/SKILL.md
+npx skills add https://fieldrobin.com --list
+```
+
+Install one skill from the website:
+
+```sh
+npx skills add https://fieldrobin.com --skill fieldrobin-mcp
 ```
 
 ## Skills
 
 | Skill | What it is | What it does |
 | --- | --- | --- |
-| `fieldrobin-public-discovery` | Public product / docs map | Reads approved product facts, docs, pricing, and discovery URLs; links `@fieldrobin/sdk` and `@fieldrobin/cli`; never touches a workspace |
-| `fieldrobin-api` | Public REST + SDK guide | Uses OpenAPI `/api/v1` and `@fieldrobin/sdk` (typed client); points to `@fieldrobin/cli` for terminal checks |
-| `fieldrobin-mcp` | Authenticated MCP guide | Connects Claude, ChatGPT, Cursor, or Gemini to one workspace over Streamable HTTP and calls job/customer tools |
+| `fieldrobin-public-discovery` | Public product / docs map | Reads approved public facts and discovery URLs; links `@fieldrobin/sdk` and `@fieldrobin/cli`; does not access workspace data |
+| `fieldrobin-api` | Public REST + SDK guide | Uses OpenAPI and public endpoints; explains OAuth-backed MCP for workspace tools |
+| `fieldrobin-mcp` | Authenticated MCP guide | Connects an OAuth-capable MCP client, SDK, or CLI to one workspace over Streamable HTTP |
 | `fieldrobin-oauth` | OAuth registration guide | Registers an Authorization Code + PKCE client and explains MCP scopes / step-up consent |
 
 | You say | Skill |
 | --- | --- |
 | "What is FieldRobin?" | `fieldrobin-public-discovery` |
-| "Use the FieldRobin REST API or SDK" | `fieldrobin-api` |
+| "Build a FieldRobin integration with the REST API, SDK, or CLI" | `fieldrobin-api` |
 | "Connect Claude to my FieldRobin jobs" | `fieldrobin-mcp` |
 | "Register an OAuth client for FieldRobin" | `fieldrobin-oauth` |
-| "Check FieldRobin health from the terminal" | `@fieldrobin/cli` (see `fieldrobin-api` / public discovery) |
+| "Check FieldRobin health or call MCP tools from the terminal" | `@fieldrobin/cli` (see `fieldrobin-api` / `fieldrobin-mcp`) |
 
 Website index: `https://fieldrobin.com/.well-known/agent-skills/index.json`
 

@@ -1,6 +1,6 @@
 ---
 name: fieldrobin-mcp
-description: Connect Claude, ChatGPT, Cursor, or Gemini to one FieldRobin workspace over Streamable HTTP MCP and call authenticated job, customer, and invoice tools. FieldRobin is field service software for home-service businesses. Use when connecting an MCP client to FieldRobin, or when the user mentions Streamable HTTP or authenticated FieldRobin tools.
+description: Connect an OAuth-capable MCP client, SDK, or CLI to one FieldRobin workspace over Streamable HTTP. Use when calling authenticated customer, job, invoice, or other workspace tools.
 ---
 
 # FieldRobin MCP server
@@ -8,11 +8,11 @@ description: Connect Claude, ChatGPT, Cursor, or Gemini to one FieldRobin worksp
 What it is: how to attach an MCP client to **one authenticated FieldRobin
 workspace** and call tools.
 
-What it does: gives the Streamable HTTP endpoint, well-known alias, and server
-card; shows Claude / Gemini / ChatGPT connect commands; explains read vs write
-scopes and consent; keeps public discovery separate
-(`fieldrobin-public-discovery`). Use `fieldrobin-oauth` if the client still
-needs registration or scopes.
+What it does: gives the Streamable HTTP endpoint and server card; explains
+OAuth setup, read/write scopes, approvals, and SDK/CLI options. MCP client OAuth
+support varies. Use a client that supports Authorization Code with PKCE and
+dynamic client registration; check `https://fieldrobin.com/auth.md` for current
+connection guidance. Use `fieldrobin-oauth` for registration details.
 
 FieldRobin is field service software for home-service businesses (customers,
 jobs, scheduling, invoices).
@@ -27,8 +27,13 @@ jobs, scheduling, invoices).
 ## Connect
 
 - Claude Code: `claude mcp add --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
-- Gemini CLI: `gemini mcp add --scope user --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
-- ChatGPT / Codex: add the Streamable HTTP URL as a remote MCP server, then complete OAuth.
+- Other MCP clients: add `https://fieldrobin.com/api/v1/mcp` as a remote
+  Streamable HTTP server, then complete OAuth if that client supports it.
+
+Gemini CLI authentication depends on the signed-in account tier. The tested
+individual account returned `UNSUPPORTED_CLIENT`; do not promise that tier can
+connect. Codex CLI logout may clear local credentials without revoking the
+FieldRobin connection, so revoke it from FieldRobin Settings when disconnecting.
 
 When direct writes are enabled, new OAuth registrations request
 `mcp:read mcp:customers:write mcp:jobs:write`; read-only deployments request
@@ -44,3 +49,17 @@ writes, job writes, or both when those scopes are available.
   is granted. A missing scope returns `MCP_WRITE_SCOPE_REQUIRED`.
 - Do not send tenant data to public discovery endpoints. This skill is for the
   authenticated MCP transport only.
+
+## Developer clients
+
+Install `@fieldrobin/sdk` and use `FieldRobinMcpClient` for typed JavaScript or
+TypeScript calls. Use `@fieldrobin/cli` to inspect tools or run a one-off call:
+
+```sh
+fieldrobin mcp tools --json
+fieldrobin mcp call get-workspace-summary '{}'
+```
+
+Set `FIELDROBIN_MCP_TOKEN` in the process environment first. The CLI requires
+`--approve` for tools that may change workspace data. OAuth scopes remain the
+server’s authorization boundary.

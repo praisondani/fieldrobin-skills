@@ -4,17 +4,17 @@
   "groupings": [
     {
       "title": "Discover FieldRobin",
-      "description": "Public product facts, docs, pricing, OpenAPI, and SDK/CLI links — no workspace access.",
+      "description": "Public product facts, docs, pricing, OpenAPI, and SDK/CLI links. Public discovery does not access workspace data.",
       "skills": ["fieldrobin-public-discovery"]
     },
     {
       "title": "Integrate the API",
-      "description": "Public REST /api/v1, OpenAPI, and the typed @fieldrobin/sdk client (plus when to use @fieldrobin/cli).",
+      "description": "Public REST /api/v1, OpenAPI, SDK methods, and when to use OAuth-backed MCP tools or the CLI.",
       "skills": ["fieldrobin-api"]
     },
     {
       "title": "Connect an agent",
-      "description": "Attach Claude, ChatGPT, Cursor, or Gemini to one FieldRobin workspace over Streamable HTTP MCP.",
+      "description": "Connect an OAuth-capable MCP client, SDK, or CLI to one FieldRobin workspace over Streamable HTTP.",
       "skills": ["fieldrobin-mcp"]
     },
     {
