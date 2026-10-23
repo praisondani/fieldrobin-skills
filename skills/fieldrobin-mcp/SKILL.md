@@ -9,10 +9,10 @@ What it is: how to attach an MCP client to **one authenticated FieldRobin
 workspace** and call tools.
 
 What it does: gives the Streamable HTTP endpoint and server card; explains
-OAuth setup, read/write scopes, approvals, and SDK/CLI options. MCP client OAuth
-support varies. Use a client that supports Authorization Code with PKCE and
-dynamic client registration; check `https://fieldrobin.com/auth.md` for current
-connection guidance. Use `fieldrobin-oauth` for registration details.
+OAuth setup, read/write scopes, and approvals. MCP client OAuth support varies.
+Use a client that supports Authorization Code with PKCE and dynamic client
+registration; check `https://fieldrobin.com/auth.md` for current connection
+guidance. Use `fieldrobin-oauth` for registration details.
 
 FieldRobin is field service software for home-service businesses (customers,
 jobs, scheduling, invoices).
@@ -52,14 +52,11 @@ writes, job writes, or both when those scopes are available.
 
 ## Developer clients
 
-Install `@fieldrobin/sdk` and use `FieldRobinMcpClient` for typed JavaScript or
-TypeScript calls. Use `@fieldrobin/cli` to inspect tools or run a one-off call:
+The current npm SDK and CLI releases do not include MCP client support yet. Use
+a native MCP client with the endpoint above for workspace tools. The upcoming
+npm `0.2.0` packages will add `FieldRobinMcpClient` and `fieldrobin mcp` commands.
 
-```sh
-fieldrobin mcp tools --json
-fieldrobin mcp call get-workspace-summary '{}'
-```
-
-Set `FIELDROBIN_MCP_TOKEN` in the process environment first. The CLI requires
-`--approve` for tools that may change workspace data. OAuth scopes remain the
-server’s authorization boundary.
+After those package versions are published, set `FIELDROBIN_MCP_TOKEN` in a
+protected process environment. The CLI will require `--approve` for tools that
+may change workspace data. OAuth scopes remain the server’s authorization
+boundary.

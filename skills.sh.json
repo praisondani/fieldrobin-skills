@@ -14,7 +14,7 @@
     },
     {
       "title": "Connect an agent",
-      "description": "Connect an OAuth-capable MCP client, SDK, or CLI to one FieldRobin workspace over Streamable HTTP.",
+      "description": "Connect an OAuth-capable MCP client to one FieldRobin workspace over Streamable HTTP. SDK and CLI MCP clients are planned for npm 0.2.0.",
       "skills": ["fieldrobin-mcp"]
     },
     {

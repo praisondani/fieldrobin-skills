@@ -25,13 +25,16 @@ jobs, scheduling, invoices). Product facts:
 - Developer portal: `https://fieldrobin.com/developers`
 - Versioning policy: `https://fieldrobin.com/api-versioning.md`
 - SDK: `https://www.npmjs.com/package/@fieldrobin/sdk` — `FieldRobinClient` for
-  public discovery, OpenAPI, A2A, and UCP; `FieldRobinMcpClient` for
-  OAuth-backed MCP tools
+  public discovery, OpenAPI, A2A, and UCP
   ([source](https://github.com/praisondani/fieldrobin-sdk))
 - CLI: `https://www.npmjs.com/package/@fieldrobin/cli` — terminal health,
-  discovery, OpenAPI, public search, and MCP tool calls
+  discovery, OpenAPI, and public search
   ([source](https://github.com/praisondani/fieldrobin-cli))
 - SDK documentation: `https://fieldrobin.com/sdk`
+
+The current npm releases do not include MCP clients. For workspace tools, use a
+native MCP client at `https://fieldrobin.com/api/v1/mcp` and complete OAuth.
+The planned npm `0.2.0` SDK and CLI releases add those client surfaces.
 
 ## Client rules
 
@@ -43,8 +46,8 @@ jobs, scheduling, invoices). Product facts:
 - Install the SDK with `npm install @fieldrobin/sdk` in app code.
 - For quick checks without writing code:
   `npx --yes @fieldrobin/cli discover` or `npm install --global @fieldrobin/cli`.
-- Use `FieldRobinMcpClient` or `fieldrobin mcp call` for workspace tools. The
-  OAuth token must include `mcp:read`; write tools require their matching
+- Use a native MCP client for workspace tools until npm `0.2.0` is published.
+  The OAuth token must include `mcp:read`; write tools require their matching
   scope. These OAuth tokens do not grant general REST access.
 
 ## Safety

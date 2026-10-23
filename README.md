@@ -23,8 +23,9 @@ Browse on skills.sh: https://www.skills.sh/praisondani/fieldrobin-skills
   over MCP. Ask it to look up customers, jobs, and operations. Customer and job
   creation requires the matching OAuth write scope.
 - **Developers:** use the API and OAuth skills to build an integration, the SDK
-  for typed JavaScript/TypeScript calls, and the CLI for public API checks and
-  one-off MCP calls.
+  for typed public API calls, and the CLI for health, discovery, OpenAPI, and
+  search. Use a native MCP client for workspace tools until npm package 0.2.0
+  includes the SDK and CLI MCP clients.
 
 ## Install
 
