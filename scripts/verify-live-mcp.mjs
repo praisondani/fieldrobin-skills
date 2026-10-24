@@ -54,9 +54,16 @@ async function main() {
     getJson(`${origin}/.well-known/mcp/server-card.json`),
   ]);
   requireCondition(serverCard.serverUrl === endpoint, "The server card URL does not match mcp.json.");
+  const server = mcpConfig.mcpServers.fieldrobin;
   requireCondition(
-    Object.keys(mcpConfig.mcpServers.fieldrobin).sort().join(",") === "type,url",
-    "Keep the portable MCP server entry to type and url so Codex can load the bundled server.",
+    Object.keys(server).sort().join(",") === "extensions,type,url",
+    "The portable MCP server entry must configure its transport, URL, and host extensions.",
+  );
+  requireCondition(
+    server.extensions?.["com.openai"]?.auth?.type === "oauth" &&
+      server.extensions["com.openai"].auth.client?.mode === "dcr" &&
+      server.extensions["com.openai"].auth.baseScopes?.includes("mcp:read"),
+    "The portable MCP server entry must use OAuth DCR and request mcp:read.",
   );
   requireCondition(
     authorizationServer.registration_endpoint === `${origin}/api/oauth/register`,

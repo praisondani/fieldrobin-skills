@@ -1,0 +1,35 @@
+{
+  "name": "fieldrobin",
+  "version": "1.0.1",
+  "description": "Manage customers, jobs, schedules, and invoices in your FieldRobin workspace.",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "FieldRobin",
+    "shortDescription": "Manage field service work",
+    "longDescription": "Connect your FieldRobin workspace to find customers and leads, review jobs and schedules, check quotes and invoices, and read business reports. Create customers or jobs only when you ask and grant the matching write permission. FieldRobin accesses records available to the workspace you connect.",
+    "developerName": "FieldRobin",
+    "category": "Business & Operations",
+    "capabilities": [
+      "Search customers, leads, and jobs",
+      "Review schedules, quotes, and invoices",
+      "Create customers and jobs with permission"
+    ],
+    "websiteURL": "https://fieldrobin.com/chatgpt",
+    "supportURL": "https://fieldrobin.com/contact",
+    "privacyPolicyURL": "https://fieldrobin.com/privacy",
+    "termsOfServiceURL": "https://fieldrobin.com/terms",
+    "defaultPrompt": [
+      "What jobs are scheduled today?",
+      "Find unpaid invoices in my workspace.",
+      "Show leads that need follow-up."
+    ],
+    "logo": "./assets/fieldrobin-icon.png",
+    "composerIcon": "./assets/fieldrobin-icon.png"
+  },
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/fieldrobin-setup/SKILL.md"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "fieldrobin-skills",
+  "plugins": [
+    {
+      "name": "fieldrobin",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/praisondani/fieldrobin-skills.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Business & Operations",
+      "interface": {
+        "displayName": "FieldRobin",
+        "shortDescription": "Manage work in your FieldRobin workspace"
+      }
+    }
+  ]
+}

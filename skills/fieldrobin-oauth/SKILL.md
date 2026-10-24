@@ -15,9 +15,17 @@ token grants access only to the MCP tools and business selected during consent.
 
 FieldRobin is field service software for home-service businesses (customers,
 jobs, scheduling, invoices). A FieldRobin business must already exist. After
-auth, connect a native MCP client to call workspace tools. Current npm SDK and
-CLI releases do not include MCP client support. Product facts:
+auth, connect a native MCP client to call workspace tools. MCP clients in the
+SDK and CLI require version `0.2.0` or later. Check current install options at
+https://fieldrobin.com/developers#sdks-and-cli. Product facts:
 `fieldrobin-public-discovery`.
+
+Before registering a client or starting OAuth, check
+`https://fieldrobin.com/api/health`. HTTP 200 confirms that the Laravel
+API route is reachable, but MCP and OAuth are available only after the full
+production smoke passes. If health returns 404 or an MCP/OAuth request fails,
+stop and wait for a successful release check. Do not retry registration
+blindly; a successful registration creates a persistent client record.
 
 ## Discovery
 

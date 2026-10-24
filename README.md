@@ -1,6 +1,6 @@
 # FieldRobin agent skills
 
-Official skills for FieldRobin field service software for home-service businesses. They help users connect an agent to a workspace and help developers use FieldRobin's public API and OAuth.
+Official skills for FieldRobin field service software for home-service businesses. They guide users through workspace setup and help developers use FieldRobin's public API and OAuth.
 
 The product monorepo is private. This public repository contains six skills and the portable ChatGPT and Codex plugin package. The `skills/` files are synchronized with the monorepo and the website copies in `frontend/public/agent-skills/`. The `skills.sh.json` grouping manifest stays at this repository root; the website copy does not include it.
 
@@ -11,25 +11,45 @@ Browse on [skills.sh](https://www.skills.sh/praisondani/fieldrobin-skills).
 - **FieldRobin users:** connect an OAuth-capable agent, review customers, leads, jobs, schedules, invoices, and reports, and create customers or jobs when requested and authorized.
 - **Developers:** use the REST API, OpenAPI, OAuth, JavaScript/TypeScript SDK, CLI, and MCP tools to build or troubleshoot an integration.
 
-The current npm SDK and CLI releases cover public discovery and API tools. The next SDK and CLI versions add authenticated MCP clients. Until those versions are published, use a native OAuth-capable MCP client for workspace tools.
+Authenticated MCP clients and `fieldrobin doctor` require SDK and CLI version `0.2.0` or later. Check the [live developer guide](https://fieldrobin.com/developers#sdks-and-cli) for current npm versions and install options. It lists GitHub source installs when a package release is not yet available.
+
+If npm has not published version `0.2.0` yet, install the public GitHub source versions:
+
+```sh
+npm install github:praisondani/fieldrobin-sdk#v0.2.0
+npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#codex/npm-release-status
+npx fieldrobin doctor
+```
+
+`fieldrobin doctor` checks API health, OAuth metadata, and the unauthenticated MCP tool catalog. It works without sending an OAuth token or reading workspace data. If a check fails, stop before OAuth registration or connection setup. A passing result confirms public endpoint availability only; workspace calls still require OAuth and the granted scopes.
+
+Use a native OAuth-capable MCP client if you do not want to install packages from GitHub.
+
+If a native MCP host cannot discover OAuth metadata or list MCP tools, stop. Do not retry registration or claim that the workspace is connected.
 
 ## Install
 
 Install all skills:
 
 ```sh
-npx skills add praisondani/fieldrobin-skills
+npx skills add https://github.com/praisondani/fieldrobin-skills/archive/refs/heads/codex/plugin-marketplace-install.zip --agent codex --copy --yes
 ```
 
-List the website's published skills and install one by name:
+This archive URL pins the install to the branch that contains the OAuth update. After it merges into `master`, use `npx skills add praisondani/fieldrobin-skills --agent codex --copy --yes` to install from the default branch.
+
+List the skills currently published on the website:
 
 ```sh
 npx skills add https://fieldrobin.com --list
-npx skills add https://fieldrobin.com --skill fieldrobin-mcp
-npx skills add https://fieldrobin.com --skill fieldrobin-operations
 ```
 
-Installing a skill provides instructions; it does not grant workspace access. Connect to `https://fieldrobin.com/api/v1/mcp` and complete OAuth to use workspace tools.
+Install a skill by name with `--skill`:
+
+```sh
+npx skills add https://fieldrobin.com --skill fieldrobin-api --agent codex --copy --yes
+```
+
+Installing a skill provides instructions; it does not grant workspace access. Before using workspace tools, verify the health and discovery endpoints above, then connect to `https://fieldrobin.com/api/v1/mcp` and complete OAuth. Stop if OAuth metadata or MCP tool discovery fails.
 
 ## Skills
 
@@ -58,30 +78,45 @@ These packages are separate from the private product monorepo:
 - [`@fieldrobin/sdk`](https://www.npmjs.com/package/@fieldrobin/sdk) — [source](https://github.com/praisondani/fieldrobin-sdk)
 - [`@fieldrobin/cli`](https://www.npmjs.com/package/@fieldrobin/cli) — [source](https://github.com/praisondani/fieldrobin-cli)
 
-## ChatGPT and Codex plugin
+## Install the ChatGPT and Codex plugin
 
-The repository root contains a portable plugin package: `plugin.json`, `mcp.json`, six bundled skills, and the FieldRobin icon. It connects to the live MCP service and supports workspace reads plus customer and job creation with the matching write permission. It does not update or delete records, send messages, or process payments.
+The repository root contains a portable plugin package: `plugin.json`, `mcp.json`, six bundled skills, and the FieldRobin icon. It targets the FieldRobin MCP service and supports workspace reads plus customer and job creation with the matching write permission when the production MCP/OAuth smoke passes. It does not update or delete records, send messages, or process payments.
 
-Download the [FieldRobin plugin bundle v1.0.0](https://github.com/praisondani/fieldrobin-skills/releases/download/v1.0.0/fieldrobin-1.0.0.zip) for clients that import plugin ZIP files.
+The [last released plugin bundle, v1.0.0](https://github.com/praisondani/fieldrobin-skills/releases/download/v1.0.0/fieldrobin-1.0.0.zip) remains available for plugin hosts that import portable ZIP files. The Codex marketplace path below installs the current repository version.
 
-The MCP entry contains only `type` and `url`. Codex currently drops packaged servers with an `extensions` field; see [issue #53658](https://github.com/openai/codex/issues/53658). FieldRobin publishes OAuth DCR and PKCE metadata, and protected tools return a bearer challenge so clients can discover sign-in.
+### Codex
 
-FieldRobin is not listed in the public ChatGPT and Codex plugin directory yet. To use the live server in ChatGPT:
+After this marketplace update merges into `master`, add the public repository as a plugin marketplace, then install FieldRobin:
 
-1. Open Plugins and select `+` > `Add custom MCP server`.
-2. Enter `https://fieldrobin.com/api/v1/mcp` and complete FieldRobin OAuth.
-3. Grant `mcp:read` for lookups. Grant `mcp:customers:write` or `mcp:jobs:write` only if you want the plugin to create those records.
-4. Review the risk notice, select `Create as a plugin`, and install it.
-5. In a chat, type `@` and select FieldRobin.
+```sh
+codex plugin marketplace add praisondani/fieldrobin-skills
+codex plugin add fieldrobin@fieldrobin-skills
+```
 
-To connect Codex CLI, run:
+The marketplace entry fetches the plugin package from the repository's default branch.
+
+The install adds the plugin and its skills. Connect your FieldRobin workspace when the production MCP/OAuth smoke passes. You can also open the Plugins directory in Codex and install FieldRobin from the `fieldrobin-skills` marketplace.
+
+If you only need an MCP connection, use the native server commands:
 
 ```sh
 codex mcp add fieldrobin --url https://fieldrobin.com/api/v1/mcp
 codex mcp login fieldrobin --scopes mcp:read
 ```
 
-The OpenAI public directory submission still needs a verified publisher selection, country targeting, a synthetic demo workspace, reviewer access entered through OpenAI's secure portal, and a reviewer-accessible recording. Keep credentials and client secrets out of this repository and the plugin ZIP.
+The portable MCP entry configures OAuth Dynamic Client Registration (DCR) and requests `mcp:read` as its base scope. Grant `mcp:customers:write` or `mcp:jobs:write` only if you want the plugin to create those records. FieldRobin enforces the scopes granted to each connection.
+
+### ChatGPT
+
+ChatGPT custom MCP connections are web-only. Full read and write support is available for Business and Enterprise/Edu workspaces; Pro connections support read-only tools under current account and developer-mode requirements. Workspace admins or owners control app creation and publishing.
+
+1. Open Plugins and select `+` > `Add custom MCP server`.
+2. Enter `https://fieldrobin.com/api/v1/mcp` and complete OAuth.
+3. Grant `mcp:read` for lookups. Grant `mcp:customers:write` or `mcp:jobs:write` only if you want the plugin to create those records.
+4. Review the risk notice, select `Create as a plugin`, then install it.
+5. In a new chat, type `@` and select FieldRobin.
+
+FieldRobin is not listed in the universal public plugin directory yet. The Codex marketplace and direct ChatGPT setup paths do not require that listing; workspace connections still depend on the production MCP/OAuth smoke passing. Public submission still needs a reviewer-accessible recording and synthetic demo workspace. Keep reviewer credentials and client secrets out of this repository and the plugin ZIP.
 
 ## Verify and package
 

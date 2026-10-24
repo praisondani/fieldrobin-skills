@@ -11,6 +11,10 @@ What it does: provides the Streamable HTTP endpoint and server card, explains OA
 
 FieldRobin is field service software for home-service businesses, including customers, jobs, scheduling, and invoices.
 
+## Check service availability
+
+Before starting OAuth, run `fieldrobin doctor` from CLI version `0.2.0` or later. Check the [live developer guide](https://fieldrobin.com/developers#sdks-and-cli) for current install commands. The check reads `https://fieldrobin.com/api/health`, OAuth metadata, and the unauthenticated MCP tool catalog without sending an OAuth token or reading workspace data. A passing result confirms public routing and discovery only; it does not connect a workspace. If any check fails, stop and do not retry registration or claim that the workspace is connected.
+
 ## Endpoints
 
 - Streamable HTTP: `https://fieldrobin.com/api/v1/mcp`
@@ -22,8 +26,9 @@ FieldRobin is field service software for home-service businesses, including cust
 
 - Claude Code: `claude mcp add --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
 - Gemini CLI: `gemini mcp add --scope user --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
-- ChatGPT: open Plugins, select `+` > `Add custom MCP server`, enter the endpoint, and complete OAuth. Review the scopes, select `Create as a plugin`, and install it. In a chat, type `@` and select FieldRobin.
+- Codex plugin: after the marketplace update merges into `master`, add the public marketplace with `codex plugin marketplace add praisondani/fieldrobin-skills`, then install it with `codex plugin add fieldrobin@fieldrobin-skills`. The marketplace entry fetches the plugin package from the repository's default branch.
 - Codex CLI: run `codex mcp add fieldrobin --url https://fieldrobin.com/api/v1/mcp`, then `codex mcp login fieldrobin --scopes mcp:read`.
+- ChatGPT: custom MCP connections are web-only. Full read and write support is available for Business and Enterprise/Edu workspaces; Pro connections support read-only tools under current account and developer-mode requirements. Open Plugins, select `+` > `Add custom MCP server`, enter the endpoint, and complete OAuth. Review the scopes, select `Create as a plugin`, and install it. In a new chat, type `@` and select FieldRobin.
 - Other MCP clients: add the endpoint as a remote Streamable HTTP server, then complete OAuth if the client supports it.
 
 Gemini CLI authentication depends on the signed-in account tier. A tested individual account returned `UNSUPPORTED_CLIENT`; do not promise that tier can connect.
@@ -42,4 +47,12 @@ When direct writes are enabled, new OAuth registrations request `mcp:read mcp:cu
 
 ## Developer clients
 
-The current npm SDK and CLI releases do not include MCP clients. Use a native MCP client with the endpoint above for workspace tools until the next package versions are published. OAuth scopes remain the server's authorization boundary.
+Authenticated MCP clients require SDK and CLI version `0.2.0` or later. See the [live developer guide](https://fieldrobin.com/developers#sdks-and-cli) for current install options. If npm has not published `0.2.0` yet, install the public GitHub source versions:
+
+```sh
+npm install github:praisondani/fieldrobin-sdk#v0.2.0
+npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#codex/npm-release-status
+npx fieldrobin doctor
+```
+
+OAuth scopes remain the server's authorization boundary.
