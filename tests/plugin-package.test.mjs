@@ -155,7 +155,9 @@ test("publishes all six bundled skills in the skills.sh grouping manifest", () =
 });
 
 test("documents skill and ChatGPT plugin install paths accurately", () => {
-  assert.match(readme, /npx skills add praisondani\/fieldrobin-skills@codex\/plugin-marketplace-install/);
+  assert.match(readme, /npx skills add https:\/\/github\.com\/praisondani\/fieldrobin-skills\/archive\/refs\/heads\/codex\/plugin-marketplace-install\.zip --agent codex --copy --yes/);
+  assert.match(readme, /After it merges into `master`, use `npx skills add praisondani\/fieldrobin-skills --agent codex --copy --yes`/);
+  assert.doesNotMatch(readme, /fieldrobin-skills@codex\/plugin-marketplace-install/);
   assert.match(readme, /npx skills add https:\/\/fieldrobin\.com --list/);
   assert.match(readme, /Add custom MCP server/);
   assert.match(readme, /OAuth Dynamic Client Registration \(DCR\)/i);

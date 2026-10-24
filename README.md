@@ -30,10 +30,10 @@ If a native MCP host cannot discover OAuth metadata or list MCP tools, stop. Do 
 Install all skills:
 
 ```sh
-npx skills add praisondani/fieldrobin-skills@codex/plugin-marketplace-install
+npx skills add https://github.com/praisondani/fieldrobin-skills/archive/refs/heads/codex/plugin-marketplace-install.zip --agent codex --copy --yes
 ```
 
-Use this branch while the OAuth update is under review. After it merges into `master`, install from the default branch.
+This archive URL pins the install to the branch that contains the OAuth update. After it merges into `master`, use `npx skills add praisondani/fieldrobin-skills --agent codex --copy --yes` to install from the default branch.
 
 List the skills currently published on the website, then install a name from that list:
 
