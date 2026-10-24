@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fieldrobin": {
+      "type": "http",
+      "url": "https://fieldrobin.com/api/v1/mcp"
+    }
+  }
+}

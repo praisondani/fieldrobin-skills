@@ -48,17 +48,33 @@ test("configures the portable MCP server for OAuth DCR with least-privilege read
   assert.deepEqual(Object.keys(server ?? {}).sort(), ["extensions", "type", "url"]);
 });
 
+test("keeps the Codex CLI compatibility manifest and MCP config in sync", () => {
+  const codexPlugin = JSON.parse(readFileSync(resolve(repoRoot, ".codex-plugin/plugin.json"), "utf8"));
+  const codexMcp = JSON.parse(readFileSync(resolve(repoRoot, ".mcp.json"), "utf8"));
+  const codexServer = codexMcp.mcpServers?.fieldrobin;
+
+  assert.equal(codexPlugin.name, plugin.name);
+  assert.equal(codexPlugin.version, plugin.version);
+  assert.equal(codexPlugin.skills, "./skills/");
+  assert.equal(codexPlugin.mcpServers, "./.mcp.json");
+  assert.deepEqual(codexPlugin.interface, openai.interface);
+  assert.equal(codexPlugin.extensions?.["com.openai"]?.onboardingSkill, openai.onboardingSkill);
+  assert.equal(codexServer?.type, "http");
+  assert.equal(codexServer?.url, mcp.mcpServers.fieldrobin.url);
+  assert.deepEqual(Object.keys(codexServer ?? {}).sort(), ["type", "url"]);
+});
+
 test("offers FieldRobin through a Codex plugin marketplace install path", () => {
   const entry = marketplace.plugins?.find((pluginEntry) => pluginEntry.name === "fieldrobin");
 
   assert.equal(marketplace.name, "fieldrobin-skills");
-  assert.equal(entry?.source?.source, "local");
-  assert.equal(entry?.source?.path, "./");
+  assert.equal(entry?.source?.source, "url");
+  assert.equal(entry?.source?.url, "https://github.com/praisondani/fieldrobin-skills.git");
+  assert.equal(entry?.source?.ref, undefined, "the package should track the repository default branch");
   assert.equal(entry?.policy?.installation, "AVAILABLE");
   assert.equal(entry?.policy?.authentication, "ON_INSTALL");
-  assert.equal(resolve(repoRoot, entry.source.path), repoRoot);
-  assert.equal(JSON.parse(readFileSync(resolve(repoRoot, entry.source.path, "plugin.json"), "utf8")).name, "fieldrobin");
-  assert.match(readme, /codex plugin marketplace add praisondani\/fieldrobin-skills --ref codex\/plugin-marketplace-install/);
+  assert.equal(JSON.parse(readFileSync(resolve(repoRoot, "plugin.json"), "utf8")).name, "fieldrobin");
+  assert.match(readme, /codex plugin marketplace add praisondani\/fieldrobin-skills(?:\n|\s)/);
   assert.match(readme, /codex plugin add fieldrobin@fieldrobin-skills/);
   assert.match(readme, /Business and Enterprise\/Edu/i);
 });
@@ -74,6 +90,8 @@ test("rebuilds plugin ZIPs without retaining files from an older archive", () =>
 
     const entries = execFileSync("unzip", ["-Z1", archivePath], { encoding: "utf8" }).split("\n");
     assert.ok(entries.includes("plugin.json"));
+    assert.ok(entries.includes(".codex-plugin/plugin.json"));
+    assert.ok(entries.includes(".mcp.json"));
     assert.ok(!entries.includes("stale.txt"), "rebuilt archives must not retain removed package files");
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
@@ -142,7 +160,7 @@ test("documents skill and ChatGPT plugin install paths accurately", () => {
   assert.match(readme, /Add custom MCP server/);
   assert.match(readme, /OAuth Dynamic Client Registration \(DCR\)/i);
   assert.match(readme, /mcp:read.*base scope/i);
-  assert.match(mcpSkill, /codex plugin marketplace add praisondani\/fieldrobin-skills --ref codex\/plugin-marketplace-install/);
+  assert.match(mcpSkill, /codex plugin marketplace add praisondani\/fieldrobin-skills/);
   assert.match(readme, /universal public plugin directory/i);
   assert.match(readme, /ChatGPT custom MCP connections are web-only/i);
   assert.match(mcpSkill, /Create as a plugin/);
@@ -165,12 +183,13 @@ test("checks public endpoint readiness before directing users to MCP or OAuth se
   assert.doesNotMatch(readme, /connects to the live MCP service/i);
 });
 
-test("keeps integration skills clear about package support and marketplace branch lifecycle", () => {
+test("keeps integration skills clear about package support and marketplace release lifecycle", () => {
   assert.match(discoverySkill, /Current npm\s+releases do not include MCP clients/);
   assert.match(discoverySkill, /Public discovery does not return workspace\s+data/);
   assert.match(oauthSkill, /Current npm SDK and\s+CLI releases do not include MCP client support/);
   assert.match(oauthSkill, /Do not put tokens in command\s+arguments or source control/);
-  assert.match(mcpSkill, /Omit `--ref` after the OAuth update merges into `master`/);
+  assert.match(mcpSkill, /after the marketplace update merges into `master`/);
+  assert.match(mcpSkill, /plugin package from the repository's default branch/i);
 });
 
 test("pins CLI doctor instructions to the source branch that contains doctor", () => {

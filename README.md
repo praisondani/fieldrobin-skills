@@ -78,14 +78,14 @@ The [last released plugin bundle, v1.0.0](https://github.com/praisondani/fieldro
 
 ### Codex
 
-Add the public repository as a plugin marketplace, then install FieldRobin:
+After this marketplace update merges into `master`, add the public repository as a plugin marketplace, then install FieldRobin:
 
 ```sh
-codex plugin marketplace add praisondani/fieldrobin-skills --ref codex/plugin-marketplace-install
+codex plugin marketplace add praisondani/fieldrobin-skills
 codex plugin add fieldrobin@fieldrobin-skills
 ```
 
-Use this ref while the OAuth update is under review. After it merges into `master`, omit `--ref codex/plugin-marketplace-install`.
+The marketplace entry fetches the plugin package from the repository's default branch.
 
 The install adds the plugin and its skills. Connect your FieldRobin workspace when the production MCP/OAuth smoke passes. You can also open the Plugins directory in Codex and install FieldRobin from the `fieldrobin-skills` marketplace.
 
