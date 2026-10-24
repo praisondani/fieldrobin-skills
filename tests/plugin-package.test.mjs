@@ -29,15 +29,22 @@ test("packages FieldRobin as a portable ChatGPT and Codex plugin", () => {
   assert.ok(openai?.interface?.supportURL?.startsWith("https://fieldrobin.com/"));
   assert.equal(openai?.interface?.defaultPrompt?.length, 3);
   assert.equal(openai?.onboardingSkill, "./skills/fieldrobin-setup/SKILL.md");
+  assert.match(openai?.publication?.release_notes ?? "", /fieldrobin doctor/i);
+  assert.doesNotMatch(openai?.publication?.release_notes ?? "", /check production health/i);
 });
 
-test("uses a Codex-compatible portable server entry and discovers OAuth from FieldRobin", () => {
+test("configures the portable MCP server for OAuth DCR with least-privilege read access", () => {
   const server = mcp.mcpServers?.fieldrobin;
 
   assert.equal(mcp.$schema, "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json");
   assert.equal(server?.type, "streamable-http");
   assert.equal(server?.url, "https://fieldrobin.com/api/v1/mcp");
-  assert.deepEqual(Object.keys(server ?? {}).sort(), ["type", "url"]);
+  assert.deepEqual(server?.extensions?.["com.openai"]?.auth, {
+    type: "oauth",
+    client: { mode: "dcr" },
+    baseScopes: ["mcp:read"],
+  });
+  assert.deepEqual(Object.keys(server ?? {}).sort(), ["extensions", "type", "url"]);
 });
 
 test("offers FieldRobin through a Codex plugin marketplace install path", () => {
@@ -132,6 +139,8 @@ test("documents skill and ChatGPT plugin install paths accurately", () => {
   assert.match(readme, /npx skills add praisondani\/fieldrobin-skills/);
   assert.match(readme, /npx skills add https:\/\/fieldrobin\.com --list/);
   assert.match(readme, /Add custom MCP server/);
+  assert.match(readme, /OAuth Dynamic Client Registration \(DCR\)/i);
+  assert.match(readme, /mcp:read.*base scope/i);
   assert.match(readme, /universal public plugin directory/i);
   assert.match(readme, /ChatGPT custom MCP connections are web-only/i);
   assert.match(mcpSkill, /Create as a plugin/);

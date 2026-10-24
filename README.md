@@ -92,7 +92,7 @@ codex mcp add fieldrobin --url https://fieldrobin.com/api/v1/mcp
 codex mcp login fieldrobin --scopes mcp:read
 ```
 
-The portable MCP entry contains only `type` and `url`. FieldRobin publishes OAuth DCR and PKCE metadata, and protected tools return a bearer challenge so clients can discover sign-in.
+The portable MCP entry configures OAuth Dynamic Client Registration (DCR) and requests `mcp:read` as its base scope. Grant `mcp:customers:write` or `mcp:jobs:write` only if you want the plugin to create those records. FieldRobin enforces the scopes granted to each connection.
 
 ### ChatGPT
 

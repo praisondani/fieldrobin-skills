@@ -90,7 +90,7 @@
         "commerce_description": "FieldRobin reads invoice and payment status. The plugin does not process payments or initiate purchases."
       },
       "publication": {
-        "release_notes": "Add Codex marketplace and SDK/CLI source install paths. Check production health before MCP/OAuth setup."
+        "release_notes": "Add Codex marketplace and SDK/CLI source install paths. Use fieldrobin doctor to check public endpoints before OAuth setup."
       }
     }
   }
