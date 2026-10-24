@@ -22,8 +22,9 @@ FieldRobin is field service software for home-service businesses, including cust
 
 - Claude Code: `claude mcp add --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
 - Gemini CLI: `gemini mcp add --scope user --transport http fieldrobin https://fieldrobin.com/api/v1/mcp`
-- ChatGPT: open Plugins, select `+` > `Add custom MCP server`, enter the endpoint, and complete OAuth. Review the scopes, select `Create as a plugin`, and install it. In a chat, type `@` and select FieldRobin.
+- Codex plugin: add the public marketplace with `codex plugin marketplace add praisondani/fieldrobin-skills`, then install it with `codex plugin add fieldrobin@fieldrobin-skills`.
 - Codex CLI: run `codex mcp add fieldrobin --url https://fieldrobin.com/api/v1/mcp`, then `codex mcp login fieldrobin --scopes mcp:read`.
+- ChatGPT: custom MCP connections are web-only. Full read and write support is available for Business and Enterprise/Edu workspaces; Pro connections support read-only tools under current account and developer-mode requirements. Open Plugins, select `+` > `Add custom MCP server`, enter the endpoint, and complete OAuth. Review the scopes, select `Create as a plugin`, and install it. In a new chat, type `@` and select FieldRobin.
 - Other MCP clients: add the endpoint as a remote Streamable HTTP server, then complete OAuth if the client supports it.
 
 Gemini CLI authentication depends on the signed-in account tier. A tested individual account returned `UNSUPPORTED_CLIENT`; do not promise that tier can connect.

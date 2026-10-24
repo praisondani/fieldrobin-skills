@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "fieldrobin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manage customers, jobs, schedules, and invoices in your FieldRobin workspace.",
   "author": {
     "name": "FieldRobin",
@@ -90,7 +90,7 @@
         "commerce_description": "FieldRobin reads invoice and payment status. The plugin does not process payments or initiate purchases."
       },
       "publication": {
-        "release_notes": "Initial portable plugin package with FieldRobin workspace guidance and OAuth MCP connection."
+        "release_notes": "Add a Codex marketplace installation path and clarify ChatGPT MCP availability."
       }
     }
   }

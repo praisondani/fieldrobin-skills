@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -15,5 +15,6 @@ for (const path of packageFiles) {
 }
 
 mkdirSync(dirname(archivePath), { recursive: true });
+rmSync(archivePath, { force: true });
 execFileSync("zip", ["-X", "-r", archivePath, ...packageFiles], { cwd: root, stdio: "inherit" });
 process.stdout.write(`Created ${archivePath}\n`);

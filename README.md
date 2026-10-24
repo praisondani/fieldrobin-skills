@@ -58,30 +58,43 @@ These packages are separate from the private product monorepo:
 - [`@fieldrobin/sdk`](https://www.npmjs.com/package/@fieldrobin/sdk) — [source](https://github.com/praisondani/fieldrobin-sdk)
 - [`@fieldrobin/cli`](https://www.npmjs.com/package/@fieldrobin/cli) — [source](https://github.com/praisondani/fieldrobin-cli)
 
-## ChatGPT and Codex plugin
+## Install the ChatGPT and Codex plugin
 
 The repository root contains a portable plugin package: `plugin.json`, `mcp.json`, six bundled skills, and the FieldRobin icon. It connects to the live MCP service and supports workspace reads plus customer and job creation with the matching write permission. It does not update or delete records, send messages, or process payments.
 
-Download the [FieldRobin plugin bundle v1.0.0](https://github.com/praisondani/fieldrobin-skills/releases/download/v1.0.0/fieldrobin-1.0.0.zip) for clients that import plugin ZIP files.
+The [last released plugin bundle, v1.0.0](https://github.com/praisondani/fieldrobin-skills/releases/download/v1.0.0/fieldrobin-1.0.0.zip) remains available for plugin hosts that import portable ZIP files. The Codex marketplace path below installs the current repository version.
 
-The MCP entry contains only `type` and `url`. Codex currently drops packaged servers with an `extensions` field; see [issue #53658](https://github.com/openai/codex/issues/53658). FieldRobin publishes OAuth DCR and PKCE metadata, and protected tools return a bearer challenge so clients can discover sign-in.
+### Codex
 
-FieldRobin is not listed in the public ChatGPT and Codex plugin directory yet. To use the live server in ChatGPT:
+Add the public repository as a plugin marketplace, then install FieldRobin:
 
-1. Open Plugins and select `+` > `Add custom MCP server`.
-2. Enter `https://fieldrobin.com/api/v1/mcp` and complete FieldRobin OAuth.
-3. Grant `mcp:read` for lookups. Grant `mcp:customers:write` or `mcp:jobs:write` only if you want the plugin to create those records.
-4. Review the risk notice, select `Create as a plugin`, and install it.
-5. In a chat, type `@` and select FieldRobin.
+```sh
+codex plugin marketplace add praisondani/fieldrobin-skills
+codex plugin add fieldrobin@fieldrobin-skills
+```
 
-To connect Codex CLI, run:
+The install adds the plugin and its skills. Connect your FieldRobin workspace when prompted. You can also open the Plugins directory in Codex and install FieldRobin from the `fieldrobin-skills` marketplace.
+
+If you only need an MCP connection, use the native server commands:
 
 ```sh
 codex mcp add fieldrobin --url https://fieldrobin.com/api/v1/mcp
 codex mcp login fieldrobin --scopes mcp:read
 ```
 
-The OpenAI public directory submission still needs a verified publisher selection, country targeting, a synthetic demo workspace, reviewer access entered through OpenAI's secure portal, and a reviewer-accessible recording. Keep credentials and client secrets out of this repository and the plugin ZIP.
+The portable MCP entry contains only `type` and `url`. FieldRobin publishes OAuth DCR and PKCE metadata, and protected tools return a bearer challenge so clients can discover sign-in.
+
+### ChatGPT
+
+ChatGPT custom MCP connections are web-only. Full read and write support is available for Business and Enterprise/Edu workspaces; Pro connections support read-only tools under current account and developer-mode requirements. Workspace admins or owners control app creation and publishing.
+
+1. Open Plugins and select `+` > `Add custom MCP server`.
+2. Enter `https://fieldrobin.com/api/v1/mcp` and complete OAuth.
+3. Grant `mcp:read` for lookups. Grant `mcp:customers:write` or `mcp:jobs:write` only if you want the plugin to create those records.
+4. Review the risk notice, select `Create as a plugin`, then install it.
+5. In a new chat, type `@` and select FieldRobin.
+
+FieldRobin is not listed in the universal public plugin directory yet. The Codex marketplace and direct ChatGPT connection work without that listing. Public submission still needs a reviewer-accessible recording and synthetic demo workspace. Keep reviewer credentials and client secrets out of this repository and the plugin ZIP.
 
 ## Verify and package
 
