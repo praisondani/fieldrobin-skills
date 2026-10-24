@@ -47,7 +47,7 @@ When direct writes are enabled, new OAuth registrations request `mcp:read mcp:cu
 
 ## Developer clients
 
-The current npm SDK and CLI releases do not include MCP clients. The public SDK `v0.2.0` tag and CLI `main` branch include them:
+The current npm SDK and CLI releases do not include MCP clients. The public SDK `v0.2.0` tag and CLI `codex/npm-release-status` branch include them:
 
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0

@@ -188,6 +188,7 @@ test("keeps integration skills clear about package support and marketplace relea
   assert.match(discoverySkill, /Public discovery does not return workspace\s+data/);
   assert.match(oauthSkill, /Current npm SDK and\s+CLI releases do not include MCP client support/);
   assert.match(oauthSkill, /Do not put tokens in command\s+arguments or source control/);
+  assert.match(mcpSkill, /public SDK `v0\.2\.0` tag and CLI `codex\/npm-release-status` branch include them/);
   assert.match(mcpSkill, /after the marketplace update merges into `master`/);
   assert.match(mcpSkill, /plugin package from the repository's default branch/i);
 });
