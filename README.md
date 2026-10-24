@@ -1,6 +1,6 @@
 # FieldRobin agent skills
 
-Official skills for FieldRobin field service software for home-service businesses. They help users connect an agent to a workspace and help developers use FieldRobin's public API and OAuth.
+Official skills for FieldRobin field service software for home-service businesses. They guide users through workspace setup and help developers use FieldRobin's public API and OAuth.
 
 The product monorepo is private. This public repository contains six skills and the portable ChatGPT and Codex plugin package. The `skills/` files are synchronized with the monorepo and the website copies in `frontend/public/agent-skills/`. The `skills.sh.json` grouping manifest stays at this repository root; the website copy does not include it.
 
@@ -20,6 +20,8 @@ npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrob
 
 Use a native OAuth-capable MCP client if you do not want to install packages from GitHub.
 
+Before starting OAuth, check `https://fieldrobin.com/api/health`. HTTP 200 confirms Laravel routing only; MCP and OAuth are available only after the full production smoke passes. If health returns 404 or an MCP/OAuth request fails, stop and wait for a successful release check.
+
 ## Install
 
 Install all skills:
@@ -28,15 +30,13 @@ Install all skills:
 npx skills add praisondani/fieldrobin-skills
 ```
 
-List the website's published skills and install one by name:
+List the skills currently published on the website, then install a name from that list:
 
 ```sh
 npx skills add https://fieldrobin.com --list
-npx skills add https://fieldrobin.com --skill fieldrobin-mcp
-npx skills add https://fieldrobin.com --skill fieldrobin-operations
 ```
 
-Installing a skill provides instructions; it does not grant workspace access. Connect to `https://fieldrobin.com/api/v1/mcp` and complete OAuth to use workspace tools.
+Installing a skill provides instructions; it does not grant workspace access. Before using workspace tools, check the production health and smoke status above, then connect to `https://fieldrobin.com/api/v1/mcp` and complete OAuth.
 
 ## Skills
 
@@ -67,7 +67,7 @@ These packages are separate from the private product monorepo:
 
 ## Install the ChatGPT and Codex plugin
 
-The repository root contains a portable plugin package: `plugin.json`, `mcp.json`, six bundled skills, and the FieldRobin icon. It connects to the live MCP service and supports workspace reads plus customer and job creation with the matching write permission. It does not update or delete records, send messages, or process payments.
+The repository root contains a portable plugin package: `plugin.json`, `mcp.json`, six bundled skills, and the FieldRobin icon. It targets the FieldRobin MCP service and supports workspace reads plus customer and job creation with the matching write permission when the production MCP/OAuth smoke passes. It does not update or delete records, send messages, or process payments.
 
 The [last released plugin bundle, v1.0.0](https://github.com/praisondani/fieldrobin-skills/releases/download/v1.0.0/fieldrobin-1.0.0.zip) remains available for plugin hosts that import portable ZIP files. The Codex marketplace path below installs the current repository version.
 
@@ -80,7 +80,7 @@ codex plugin marketplace add praisondani/fieldrobin-skills
 codex plugin add fieldrobin@fieldrobin-skills
 ```
 
-The install adds the plugin and its skills. Connect your FieldRobin workspace when prompted. You can also open the Plugins directory in Codex and install FieldRobin from the `fieldrobin-skills` marketplace.
+The install adds the plugin and its skills. Connect your FieldRobin workspace when the production MCP/OAuth smoke passes. You can also open the Plugins directory in Codex and install FieldRobin from the `fieldrobin-skills` marketplace.
 
 If you only need an MCP connection, use the native server commands:
 
@@ -101,7 +101,7 @@ ChatGPT custom MCP connections are web-only. Full read and write support is avai
 4. Review the risk notice, select `Create as a plugin`, then install it.
 5. In a new chat, type `@` and select FieldRobin.
 
-FieldRobin is not listed in the universal public plugin directory yet. The Codex marketplace and direct ChatGPT connection work without that listing. Public submission still needs a reviewer-accessible recording and synthetic demo workspace. Keep reviewer credentials and client secrets out of this repository and the plugin ZIP.
+FieldRobin is not listed in the universal public plugin directory yet. The Codex marketplace and direct ChatGPT setup paths do not require that listing; workspace connections still depend on the production MCP/OAuth smoke passing. Public submission still needs a reviewer-accessible recording and synthetic demo workspace. Keep reviewer credentials and client secrets out of this repository and the plugin ZIP.
 
 ## Verify and package
 

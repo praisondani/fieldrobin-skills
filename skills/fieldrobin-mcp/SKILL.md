@@ -11,6 +11,10 @@ What it does: provides the Streamable HTTP endpoint and server card, explains OA
 
 FieldRobin is field service software for home-service businesses, including customers, jobs, scheduling, and invoices.
 
+## Check service availability
+
+Before starting OAuth, check `https://fieldrobin.com/api/health`. HTTP 200 confirms that the Laravel API route is reachable, but MCP and OAuth are available only after the full production smoke passes. If health returns 404 or an MCP/OAuth request fails, stop and tell the user to wait for a successful release check. Do not retry registration or claim that the workspace is connected.
+
 ## Endpoints
 
 - Streamable HTTP: `https://fieldrobin.com/api/v1/mcp`
@@ -43,4 +47,11 @@ When direct writes are enabled, new OAuth registrations request `mcp:read mcp:cu
 
 ## Developer clients
 
-The current npm SDK and CLI releases do not include MCP clients. Use a native MCP client with the endpoint above for workspace tools until the next package versions are published. OAuth scopes remain the server's authorization boundary.
+The current npm SDK and CLI releases do not include MCP clients. The public SDK `v0.2.0` tag and CLI `main` branch include them:
+
+```sh
+npm install github:praisondani/fieldrobin-sdk#v0.2.0
+npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#main
+```
+
+OAuth scopes remain the server's authorization boundary.

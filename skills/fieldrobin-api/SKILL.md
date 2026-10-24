@@ -40,6 +40,12 @@ npm install github:praisondani/fieldrobin-sdk#v0.2.0
 npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#main
 ```
 
+Before using authenticated MCP, check `https://fieldrobin.com/api/health`.
+HTTP 200 confirms Laravel routing only; MCP and OAuth are available only after
+the full production smoke passes. If health returns 404 or MCP/OAuth requests
+fail, stop and wait for a successful release check. Public discovery endpoints
+are separate and expose only approved public resources.
+
 ## Client rules
 
 - Errors use a JSON envelope with `code`, `message`, `resolution`, and `status`.

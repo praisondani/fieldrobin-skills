@@ -19,6 +19,13 @@ auth, connect a native MCP client to call workspace tools. Current npm SDK and
 CLI releases do not include MCP client support. Product facts:
 `fieldrobin-public-discovery`.
 
+Before registering a client or starting OAuth, check
+`https://fieldrobin.com/api/health`. HTTP 200 confirms that the Laravel
+API route is reachable, but MCP and OAuth are available only after the full
+production smoke passes. If health returns 404 or an MCP/OAuth request fails,
+stop and wait for a successful release check. Do not retry registration
+blindly; a successful registration creates a persistent client record.
+
 ## Discovery
 
 - Protected resource: `https://fieldrobin.com/.well-known/oauth-protected-resource`

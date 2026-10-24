@@ -13,6 +13,9 @@ const marketplace = JSON.parse(readFileSync(new URL("../.agents/plugins/marketpl
 const readme = readFileSync(new URL("../README.md", import.meta.url), "utf8");
 const repoRoot = resolve(fileURLToPath(new URL("../", import.meta.url)));
 const mcpSkill = readFileSync(new URL("../skills/fieldrobin-mcp/SKILL.md", import.meta.url), "utf8");
+const apiSkill = readFileSync(new URL("../skills/fieldrobin-api/SKILL.md", import.meta.url), "utf8");
+const oauthSkill = readFileSync(new URL("../skills/fieldrobin-oauth/SKILL.md", import.meta.url), "utf8");
+const setupSkill = readFileSync(new URL("../skills/fieldrobin-setup/SKILL.md", import.meta.url), "utf8");
 const openai = plugin.extensions?.["com.openai"];
 
 test("packages FieldRobin as a portable ChatGPT and Codex plugin", () => {
@@ -127,10 +130,22 @@ test("publishes all six bundled skills in the skills.sh grouping manifest", () =
 
 test("documents skill and ChatGPT plugin install paths accurately", () => {
   assert.match(readme, /npx skills add praisondani\/fieldrobin-skills/);
+  assert.match(readme, /npx skills add https:\/\/fieldrobin\.com --list/);
   assert.match(readme, /Add custom MCP server/);
   assert.match(readme, /universal public plugin directory/i);
   assert.match(readme, /ChatGPT custom MCP connections are web-only/i);
   assert.match(mcpSkill, /Create as a plugin/);
   assert.match(mcpSkill, /type `@` and select FieldRobin/);
+  assert.match(mcpSkill, /github:praisondani\/fieldrobin-sdk#v0\.2\.0/);
   assert.doesNotMatch(mcpSkill, /add the Streamable HTTP URL as a remote MCP server, then complete OAuth/i);
+});
+
+test("checks production health before directing users to MCP or OAuth setup", () => {
+  for (const content of [readme, apiSkill, mcpSkill, oauthSkill, setupSkill]) {
+    assert.match(content, /\/api\/health/);
+    assert.match(content, /HTTP 200/);
+    assert.match(content, /stop|do not continue|wait/i);
+  }
+  assert.doesNotMatch(readme, /direct ChatGPT connection work without/i);
+  assert.doesNotMatch(readme, /connects to the live MCP service/i);
 });
