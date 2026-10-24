@@ -34,7 +34,7 @@ jobs, scheduling, invoices). Product facts:
 - SDK documentation: `https://fieldrobin.com/sdk`
 
 Current npm releases do not include authenticated MCP clients. The SDK
-`v0.2.0` tag and CLI `main` branch do. Install them from GitHub:
+`v0.2.0` tag and CLI `codex/npm-release-status` branch do. Install them from GitHub:
 
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0
