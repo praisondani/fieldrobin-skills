@@ -13,6 +13,7 @@ const marketplace = JSON.parse(readFileSync(new URL("../.agents/plugins/marketpl
 const readme = readFileSync(new URL("../README.md", import.meta.url), "utf8");
 const repoRoot = resolve(fileURLToPath(new URL("../", import.meta.url)));
 const mcpSkill = readFileSync(new URL("../skills/fieldrobin-mcp/SKILL.md", import.meta.url), "utf8");
+const discoverySkill = readFileSync(new URL("../skills/fieldrobin-public-discovery/SKILL.md", import.meta.url), "utf8");
 const apiSkill = readFileSync(new URL("../skills/fieldrobin-api/SKILL.md", import.meta.url), "utf8");
 const oauthSkill = readFileSync(new URL("../skills/fieldrobin-oauth/SKILL.md", import.meta.url), "utf8");
 const setupSkill = readFileSync(new URL("../skills/fieldrobin-setup/SKILL.md", import.meta.url), "utf8");
@@ -162,6 +163,14 @@ test("checks public endpoint readiness before directing users to MCP or OAuth se
   }
   assert.doesNotMatch(readme, /direct ChatGPT connection work without/i);
   assert.doesNotMatch(readme, /connects to the live MCP service/i);
+});
+
+test("keeps integration skills clear about package support and marketplace branch lifecycle", () => {
+  assert.match(discoverySkill, /Current npm\s+releases do not include MCP clients/);
+  assert.match(discoverySkill, /Public discovery does not return workspace\s+data/);
+  assert.match(oauthSkill, /Current npm SDK and\s+CLI releases do not include MCP client support/);
+  assert.match(oauthSkill, /Do not put tokens in command\s+arguments or source control/);
+  assert.match(mcpSkill, /Omit `--ref` after the OAuth update merges into `master`/);
 });
 
 test("pins CLI doctor instructions to the source branch that contains doctor", () => {
