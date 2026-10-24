@@ -90,7 +90,7 @@
         "commerce_description": "FieldRobin reads invoice and payment status. The plugin does not process payments or initiate purchases."
       },
       "publication": {
-        "release_notes": "Add a Codex marketplace installation path and clarify ChatGPT MCP availability."
+        "release_notes": "Add a Codex marketplace install path and document SDK/CLI source installs plus ChatGPT MCP availability."
       }
     }
   }

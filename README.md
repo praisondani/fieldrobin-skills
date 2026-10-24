@@ -11,7 +11,14 @@ Browse on [skills.sh](https://www.skills.sh/praisondani/fieldrobin-skills).
 - **FieldRobin users:** connect an OAuth-capable agent, review customers, leads, jobs, schedules, invoices, and reports, and create customers or jobs when requested and authorized.
 - **Developers:** use the REST API, OpenAPI, OAuth, JavaScript/TypeScript SDK, CLI, and MCP tools to build or troubleshoot an integration.
 
-The current npm SDK and CLI releases cover public discovery and API tools. The next SDK and CLI versions add authenticated MCP clients. Until those versions are published, use a native OAuth-capable MCP client for workspace tools.
+The current npm SDK and CLI releases cover public discovery and API tools. The public SDK `0.2.0` tag and CLI `main` branch include authenticated MCP clients before their npm releases.
+
+```sh
+npm install github:praisondani/fieldrobin-sdk#v0.2.0
+npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#main
+```
+
+Use a native OAuth-capable MCP client if you do not want to install packages from GitHub.
 
 ## Install
 
