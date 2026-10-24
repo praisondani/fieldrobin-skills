@@ -35,10 +35,16 @@ npx skills add https://github.com/praisondani/fieldrobin-skills/archive/refs/hea
 
 This archive URL pins the install to the branch that contains the OAuth update. After it merges into `master`, use `npx skills add praisondani/fieldrobin-skills --agent codex --copy --yes` to install from the default branch.
 
-List the skills currently published on the website, then install a name from that list:
+List the skills currently published on the website:
 
 ```sh
 npx skills add https://fieldrobin.com --list
+```
+
+Install a skill by name with `--skill`:
+
+```sh
+npx skills add https://fieldrobin.com --skill fieldrobin-api --agent codex --copy --yes
 ```
 
 Installing a skill provides instructions; it does not grant workspace access. Before using workspace tools, verify the health and discovery endpoints above, then connect to `https://fieldrobin.com/api/v1/mcp` and complete OAuth. Stop if OAuth metadata or MCP tool discovery fails.

@@ -159,6 +159,7 @@ test("documents skill and ChatGPT plugin install paths accurately", () => {
   assert.match(readme, /After it merges into `master`, use `npx skills add praisondani\/fieldrobin-skills --agent codex --copy --yes`/);
   assert.doesNotMatch(readme, /fieldrobin-skills@codex\/plugin-marketplace-install/);
   assert.match(readme, /npx skills add https:\/\/fieldrobin\.com --list/);
+  assert.match(readme, /npx skills add https:\/\/fieldrobin\.com --skill fieldrobin-api --agent codex --copy --yes/);
   assert.match(readme, /Add custom MCP server/);
   assert.match(readme, /OAuth Dynamic Client Registration \(DCR\)/i);
   assert.match(readme, /mcp:read.*base scope/i);
