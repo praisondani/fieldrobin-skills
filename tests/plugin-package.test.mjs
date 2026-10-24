@@ -187,12 +187,15 @@ test("checks public endpoint readiness before directing users to MCP or OAuth se
 });
 
 test("keeps integration skills clear about package support and marketplace release lifecycle", () => {
-  assert.match(discoverySkill, /Current npm\s+releases do not include MCP clients/);
-  assert.match(discoverySkill, /Public discovery does not return workspace\s+data/);
-  assert.match(oauthSkill, /Current npm SDK and\s+CLI releases do not include MCP client support/);
+  for (const content of [readme, discoverySkill, apiSkill, mcpSkill, oauthSkill]) {
+    assert.match(content, /https:\/\/fieldrobin\.com\/developers#sdks-and-cli/);
+  }
+  assert.doesNotMatch(discoverySkill, /Current npm\s+releases do not include MCP clients/);
+  assert.match(discoverySkill, /Public discovery\s+does not return workspace\s+data/);
+  assert.doesNotMatch(oauthSkill, /Current npm SDK and\s+CLI releases do not include MCP client support/);
   assert.match(oauthSkill, /Do not put tokens in command\s+arguments or source control/);
-  assert.match(apiSkill, /SDK\s+`v0\.2\.0` tag and CLI `codex\/npm-release-status` branch do/);
-  assert.match(mcpSkill, /public SDK `v0\.2\.0` tag and CLI `codex\/npm-release-status` branch include them/);
+  assert.match(apiSkill, /Authenticated MCP clients require.*0\.2\.0` or later/s);
+  assert.match(mcpSkill, /Authenticated MCP clients require.*0\.2\.0` or later/s);
   assert.match(mcpSkill, /after the marketplace update merges into `master`/);
   assert.match(mcpSkill, /plugin package from the repository's default branch/i);
 });

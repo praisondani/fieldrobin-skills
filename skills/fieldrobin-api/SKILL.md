@@ -28,13 +28,15 @@ jobs, scheduling, invoices). Product facts:
   public discovery, OpenAPI, A2A, and UCP
   ([source](https://github.com/praisondani/fieldrobin-sdk))
 - CLI: `https://www.npmjs.com/package/@fieldrobin/cli` — terminal health,
-  discovery, OpenAPI, and public search. Source version `0.2.0` adds the
+  discovery, OpenAPI, and public search. Version `0.2.0` and later include the
   `fieldrobin doctor` readiness check and authenticated MCP commands.
   ([source](https://github.com/praisondani/fieldrobin-cli))
 - SDK documentation: `https://fieldrobin.com/sdk`
 
-Current npm releases do not include authenticated MCP clients. The SDK
-`v0.2.0` tag and CLI `codex/npm-release-status` branch do. Install them from GitHub:
+Authenticated MCP clients require SDK and CLI version `0.2.0` or later. Check
+the [live developer guide](https://fieldrobin.com/developers#sdks-and-cli) for
+current npm versions and install options. If npm has not published `0.2.0` yet,
+install the public GitHub source versions:
 
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0

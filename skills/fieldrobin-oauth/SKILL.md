@@ -15,8 +15,9 @@ token grants access only to the MCP tools and business selected during consent.
 
 FieldRobin is field service software for home-service businesses (customers,
 jobs, scheduling, invoices). A FieldRobin business must already exist. After
-auth, connect a native MCP client to call workspace tools. Current npm SDK and
-CLI releases do not include MCP client support. Product facts:
+auth, connect a native MCP client to call workspace tools. MCP clients in the
+SDK and CLI require version `0.2.0` or later. Check current install options at
+https://fieldrobin.com/developers#sdks-and-cli. Product facts:
 `fieldrobin-public-discovery`.
 
 Before registering a client or starting OAuth, check

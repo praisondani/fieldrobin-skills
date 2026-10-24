@@ -13,7 +13,7 @@ FieldRobin is field service software for home-service businesses, including cust
 
 ## Check service availability
 
-Before starting OAuth, run `fieldrobin doctor` from CLI source version `0.2.0`. It checks `https://fieldrobin.com/api/health`, OAuth metadata, and the unauthenticated MCP tool catalog without sending an OAuth token or reading workspace data. A passing result confirms public routing and discovery only; it does not connect a workspace. If any check fails, stop and do not retry registration or claim that the workspace is connected.
+Before starting OAuth, run `fieldrobin doctor` from CLI version `0.2.0` or later. Check the [live developer guide](https://fieldrobin.com/developers#sdks-and-cli) for current install commands. The check reads `https://fieldrobin.com/api/health`, OAuth metadata, and the unauthenticated MCP tool catalog without sending an OAuth token or reading workspace data. A passing result confirms public routing and discovery only; it does not connect a workspace. If any check fails, stop and do not retry registration or claim that the workspace is connected.
 
 ## Endpoints
 
@@ -47,7 +47,7 @@ When direct writes are enabled, new OAuth registrations request `mcp:read mcp:cu
 
 ## Developer clients
 
-The current npm SDK and CLI releases do not include MCP clients. The public SDK `v0.2.0` tag and CLI `codex/npm-release-status` branch include them:
+Authenticated MCP clients require SDK and CLI version `0.2.0` or later. See the [live developer guide](https://fieldrobin.com/developers#sdks-and-cli) for current install options. If npm has not published `0.2.0` yet, install the public GitHub source versions:
 
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0
