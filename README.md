@@ -15,7 +15,7 @@ The current npm SDK and CLI releases cover public discovery and API tools. The p
 
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0
-npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#main
+npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#codex/npm-release-status
 npx fieldrobin doctor
 ```
 

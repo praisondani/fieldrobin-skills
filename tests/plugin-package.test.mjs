@@ -162,3 +162,10 @@ test("checks public endpoint readiness before directing users to MCP or OAuth se
   assert.doesNotMatch(readme, /direct ChatGPT connection work without/i);
   assert.doesNotMatch(readme, /connects to the live MCP service/i);
 });
+
+test("pins CLI doctor instructions to the source branch that contains doctor", () => {
+  for (const content of [readme, apiSkill, mcpSkill]) {
+    assert.match(content, /fieldrobin-cli#codex\/npm-release-status/);
+    assert.doesNotMatch(content, /fieldrobin-cli#main/);
+  }
+});

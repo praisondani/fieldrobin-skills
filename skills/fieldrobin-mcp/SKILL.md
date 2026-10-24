@@ -51,7 +51,7 @@ The current npm SDK and CLI releases do not include MCP clients. The public SDK 
 
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0
-npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#main
+npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#codex/npm-release-status
 npx fieldrobin doctor
 ```
 
