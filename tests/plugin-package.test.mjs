@@ -108,6 +108,9 @@ test("includes review coverage for supported and denied requests", () => {
     assert.ok(scenario.tools_triggered);
     assert.ok(scenario.expected_behavior);
     assert.match(scenario.description, /Setup:/);
+    for (const toolName of scenario.tools_triggered.split(",")) {
+      assert.match(toolName.trim(), /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/);
+    }
   }
   for (const scenario of cases?.negative ?? []) {
     assert.ok(scenario.prompt);

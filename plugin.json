@@ -67,7 +67,7 @@
             {
               "description": "Setup: Connect a synthetic demo workspace with customer-write permission and no exact match for OpenAI Review Fixture. Expected behavior: Search before creating and avoid duplicates on later runs.",
               "prompt": "Ensure a customer named OpenAI Review Fixture exists in my test workspace. Create one only if it does not already exist.",
-              "tools_triggered": "search-customers, create-customer when no exact match exists",
+              "tools_triggered": "search-customers, create-customer",
               "expected_behavior": "Search first. Create exactly one customer only when no exact match exists and the connected account grants mcp:customers:write. On later runs, report the existing match without creating a duplicate."
             }
           ],
