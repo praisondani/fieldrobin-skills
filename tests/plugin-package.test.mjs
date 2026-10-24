@@ -57,7 +57,7 @@ test("offers FieldRobin through a Codex plugin marketplace install path", () => 
   assert.equal(entry?.policy?.authentication, "ON_INSTALL");
   assert.equal(resolve(repoRoot, entry.source.path), repoRoot);
   assert.equal(JSON.parse(readFileSync(resolve(repoRoot, entry.source.path, "plugin.json"), "utf8")).name, "fieldrobin");
-  assert.match(readme, /codex plugin marketplace add praisondani\/fieldrobin-skills/);
+  assert.match(readme, /codex plugin marketplace add praisondani\/fieldrobin-skills --ref codex\/plugin-marketplace-install/);
   assert.match(readme, /codex plugin add fieldrobin@fieldrobin-skills/);
   assert.match(readme, /Business and Enterprise\/Edu/i);
 });
@@ -136,11 +136,12 @@ test("publishes all six bundled skills in the skills.sh grouping manifest", () =
 });
 
 test("documents skill and ChatGPT plugin install paths accurately", () => {
-  assert.match(readme, /npx skills add praisondani\/fieldrobin-skills/);
+  assert.match(readme, /npx skills add praisondani\/fieldrobin-skills@codex\/plugin-marketplace-install/);
   assert.match(readme, /npx skills add https:\/\/fieldrobin\.com --list/);
   assert.match(readme, /Add custom MCP server/);
   assert.match(readme, /OAuth Dynamic Client Registration \(DCR\)/i);
   assert.match(readme, /mcp:read.*base scope/i);
+  assert.match(mcpSkill, /codex plugin marketplace add praisondani\/fieldrobin-skills --ref codex\/plugin-marketplace-install/);
   assert.match(readme, /universal public plugin directory/i);
   assert.match(readme, /ChatGPT custom MCP connections are web-only/i);
   assert.match(mcpSkill, /Create as a plugin/);

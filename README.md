@@ -30,8 +30,10 @@ If a native MCP host cannot discover OAuth metadata or list MCP tools, stop. Do 
 Install all skills:
 
 ```sh
-npx skills add praisondani/fieldrobin-skills
+npx skills add praisondani/fieldrobin-skills@codex/plugin-marketplace-install
 ```
+
+Use this branch while the OAuth update is under review. After it merges into `master`, install from the default branch.
 
 List the skills currently published on the website, then install a name from that list:
 
@@ -79,9 +81,11 @@ The [last released plugin bundle, v1.0.0](https://github.com/praisondani/fieldro
 Add the public repository as a plugin marketplace, then install FieldRobin:
 
 ```sh
-codex plugin marketplace add praisondani/fieldrobin-skills
+codex plugin marketplace add praisondani/fieldrobin-skills --ref codex/plugin-marketplace-install
 codex plugin add fieldrobin@fieldrobin-skills
 ```
+
+Use this ref while the OAuth update is under review. After it merges into `master`, omit `--ref codex/plugin-marketplace-install`.
 
 The install adds the plugin and its skills. Connect your FieldRobin workspace when the production MCP/OAuth smoke passes. You can also open the Plugins directory in Codex and install FieldRobin from the `fieldrobin-skills` marketplace.
 
