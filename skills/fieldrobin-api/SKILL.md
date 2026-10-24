@@ -28,7 +28,8 @@ jobs, scheduling, invoices). Product facts:
   public discovery, OpenAPI, A2A, and UCP
   ([source](https://github.com/praisondani/fieldrobin-sdk))
 - CLI: `https://www.npmjs.com/package/@fieldrobin/cli` — terminal health,
-  discovery, OpenAPI, and public search
+  discovery, OpenAPI, and public search. Source version `0.2.0` adds the
+  `fieldrobin doctor` readiness check and authenticated MCP commands.
   ([source](https://github.com/praisondani/fieldrobin-cli))
 - SDK documentation: `https://fieldrobin.com/sdk`
 
@@ -38,13 +39,15 @@ Current npm releases do not include authenticated MCP clients. The SDK
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0
 npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#main
+npx fieldrobin doctor
 ```
 
-Before using authenticated MCP, check `https://fieldrobin.com/api/health`.
-HTTP 200 confirms Laravel routing only; MCP and OAuth are available only after
-the full production smoke passes. If health returns 404 or MCP/OAuth requests
-fail, stop and wait for a successful release check. Public discovery endpoints
-are separate and expose only approved public resources.
+`fieldrobin doctor` checks `https://fieldrobin.com/api/health`, OAuth metadata,
+and the unauthenticated MCP tool catalog. It does not send an OAuth token or
+read workspace data. A passing result confirms public routing and discovery
+only; it does not grant workspace access. If any check fails, stop before OAuth
+registration or connection setup. Public discovery endpoints remain separate
+and expose only approved public resources.
 
 ## Client rules
 

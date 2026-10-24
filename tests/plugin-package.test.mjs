@@ -140,11 +140,15 @@ test("documents skill and ChatGPT plugin install paths accurately", () => {
   assert.doesNotMatch(mcpSkill, /add the Streamable HTTP URL as a remote MCP server, then complete OAuth/i);
 });
 
-test("checks production health before directing users to MCP or OAuth setup", () => {
+test("checks public endpoint readiness before directing users to MCP or OAuth setup", () => {
   for (const content of [readme, apiSkill, mcpSkill, oauthSkill, setupSkill]) {
-    assert.match(content, /\/api\/health/);
-    assert.match(content, /HTTP 200/);
-    assert.match(content, /stop|do not continue|wait/i);
+    assert.match(content, /\/api\/health|fieldrobin doctor/);
+    assert.match(content, /stop/i);
+  }
+  for (const content of [readme, apiSkill, mcpSkill]) {
+    assert.match(content, /fieldrobin doctor/);
+    assert.match(content, /without sending an OAuth token|does not send an OAuth token/i);
+    assert.match(content, /read(?:ing)? workspace data/i);
   }
   assert.doesNotMatch(readme, /direct ChatGPT connection work without/i);
   assert.doesNotMatch(readme, /connects to the live MCP service/i);

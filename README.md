@@ -11,16 +11,19 @@ Browse on [skills.sh](https://www.skills.sh/praisondani/fieldrobin-skills).
 - **FieldRobin users:** connect an OAuth-capable agent, review customers, leads, jobs, schedules, invoices, and reports, and create customers or jobs when requested and authorized.
 - **Developers:** use the REST API, OpenAPI, OAuth, JavaScript/TypeScript SDK, CLI, and MCP tools to build or troubleshoot an integration.
 
-The current npm SDK and CLI releases cover public discovery and API tools. The public SDK `0.2.0` tag and CLI `main` branch include authenticated MCP clients before their npm releases.
+The current npm SDK and CLI releases cover public discovery and API tools. The public SDK `0.2.0` tag and CLI `main` branch include authenticated MCP clients before their npm releases. CLI source `0.2.0` also adds `fieldrobin doctor` for public endpoint checks.
 
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0
 npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#main
+npx fieldrobin doctor
 ```
+
+`fieldrobin doctor` checks API health, OAuth metadata, and the unauthenticated MCP tool catalog. It works without sending an OAuth token or reading workspace data. If a check fails, stop before OAuth registration or connection setup. A passing result confirms public endpoint availability only; workspace calls still require OAuth and the granted scopes.
 
 Use a native OAuth-capable MCP client if you do not want to install packages from GitHub.
 
-Before starting OAuth, check `https://fieldrobin.com/api/health`. HTTP 200 confirms Laravel routing only; MCP and OAuth are available only after the full production smoke passes. If health returns 404 or an MCP/OAuth request fails, stop and wait for a successful release check.
+If a native MCP host cannot discover OAuth metadata or list MCP tools, stop. Do not retry registration or claim that the workspace is connected.
 
 ## Install
 
@@ -36,7 +39,7 @@ List the skills currently published on the website, then install a name from tha
 npx skills add https://fieldrobin.com --list
 ```
 
-Installing a skill provides instructions; it does not grant workspace access. Before using workspace tools, check the production health and smoke status above, then connect to `https://fieldrobin.com/api/v1/mcp` and complete OAuth.
+Installing a skill provides instructions; it does not grant workspace access. Before using workspace tools, verify the health and discovery endpoints above, then connect to `https://fieldrobin.com/api/v1/mcp` and complete OAuth. Stop if OAuth metadata or MCP tool discovery fails.
 
 ## Skills
 

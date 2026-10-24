@@ -13,7 +13,7 @@ FieldRobin is field service software for home-service businesses, including cust
 
 ## Check service availability
 
-Before starting OAuth, check `https://fieldrobin.com/api/health`. HTTP 200 confirms that the Laravel API route is reachable, but MCP and OAuth are available only after the full production smoke passes. If health returns 404 or an MCP/OAuth request fails, stop and tell the user to wait for a successful release check. Do not retry registration or claim that the workspace is connected.
+Before starting OAuth, run `fieldrobin doctor` from CLI source version `0.2.0`. It checks `https://fieldrobin.com/api/health`, OAuth metadata, and the unauthenticated MCP tool catalog without sending an OAuth token or reading workspace data. A passing result confirms public routing and discovery only; it does not connect a workspace. If any check fails, stop and do not retry registration or claim that the workspace is connected.
 
 ## Endpoints
 
@@ -52,6 +52,7 @@ The current npm SDK and CLI releases do not include MCP clients. The public SDK 
 ```sh
 npm install github:praisondani/fieldrobin-sdk#v0.2.0
 npm install github:praisondani/fieldrobin-sdk#v0.2.0 github:praisondani/fieldrobin-cli#main
+npx fieldrobin doctor
 ```
 
 OAuth scopes remain the server's authorization boundary.
